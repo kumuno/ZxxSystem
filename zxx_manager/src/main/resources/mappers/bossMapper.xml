@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.BossMapper">
+    <resultMap id="bossMap" type="com.Pojo.boss">
+        <id column="boss_id"  property="boss_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_name"  property="boss_name" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_password"  property="boss_password" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_image"  property="boss_image" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_phone"  property="boss_phone" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_email"  property="boss_email" jdbcType="VARCHAR" javaType="string" />
+        <result column="boss_createTime"  property="boss_createTime" />
+    </resultMap>
+
+
+    <!--用户注册-->
+    <insert id="insertBoss" parameterType="com.Pojo.boss">
+        insert into boss(boss_id,boss_name,boss_image,boss_password,boss_phone,boss_createTime,boss_email)
+        values (#{boss_id},#{boss_name},#{boss_image},#{boss_password},#{boss_phone},#{boss_createTime},#{boss_email})
+    </insert>
+
+    <!--根据id查询-->
+    <select id="queryById" resultMap="bossMap">
+        select * from boss
+        where boss_id = #{boss_id}
+    </select>
+
+    <!--根据邮箱查询-->
+    <select id="queryByEmail" resultType="com.Pojo.boss">
+        select * from boss
+        where boss_email = #{boss_email}
+    </select>
+
+   <!--登录-->
+    <select id="selectBoss" resultType="com.Pojo.boss">
+        select * from boss
+        where boss_email = #{boss_email}
+        and boss_password = #{boss_password}
+    </select>
+
+    <select id="selectBossByUsername" resultType="com.Pojo.boss">
+        select * from boss
+        where boss_name = #{boss_name} and boss_email = #{boss_email}
+    </select>
+
+    <update id="updateBoss_password">
+        update boss
+        set boss_password = #{boss_password}
+        where boss_name = #{boss_name} and boss_email =#{boss_email}
+    </update>
+
+    <!--///////////////////////////////////////////////////-->
+
+<!--    用户注册-->
+    <insert id="addBoss"  parameterType="com.Pojo.boss">
+        insert into boss(boss_id,boss_name,boss_image,boss_password,boss_phone,boss_createTime)
+        values (#{boss_id},#{boss_name},#{boss_image},#{boss_password},#{boss_phone},#{boss_createTime})
+    </insert>
+
+<!--    用户登录-->
+    <select id="loginById" resultMap="bossMap">
+        select * from boss
+        where boss_id = #{boss_id}
+        and boss_password = #{boss_password}
+    </select>
+
+
+    <delete id="deleteBossById" parameterType="int">
+        delete from boss where boss_id = #{boss_id}
+    </delete>
+
+    <update id="updateBoss"  parameterType="com.Pojo.boss">
+        update boss
+        set boss_name=#{boss_name},
+            boss_password=#{boss_password},
+            boss_phone=#{boss_phone}
+        where    boss_id=#{boss_id}
+    </update>
+
+
+
+    <select id="queryByPhone" resultMap="bossMap">
+        select * from boss
+        where boss_phone = #{boss_phone}
+    </select>
+
+
+</mapper>

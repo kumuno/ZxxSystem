@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zxx_manager:war">
+    <output-path>$PROJECT_DIR$/zxx_manager/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zxx_manager</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="zxx_manager-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="zxx_manager:war exploded" />
+    </root>
+  </artifact>
+</component>

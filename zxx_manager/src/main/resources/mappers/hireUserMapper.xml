@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.hireUserMapper">
+    <resultMap id="hireUserMap" type="com.Pojo.hireUser">
+        <id column="hire_user_id"  property="hire_user_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_name"  property="hire_user_name" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_identity"  property="hire_user_identity" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_password"  property="hire_user_password" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_phone"  property="hire_user_phone" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_identitycard"  property="hire_user_identitycard" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_image"  property="hire_user_image" jdbcType="VARCHAR" javaType="string" />
+        <result column="hire_user_revenue"  property="hire_user_revenue" jdbcType="DOUBLE" javaType="double" />
+        <result column="hire_user_proportion"  property="hire_user_proportion" jdbcType="DOUBLE" javaType="double" />
+        <result column="hire_user_createTime"  property="hire_user_createTime" />
+        <result column="hire_user_tradednumber"  property="hire_user_tradednumber" jdbcType="INTEGER" javaType="int"/>
+        <result column="hire_user_is_deleted"  property="hire_user_is_deleted" jdbcType="TINYINT" />
+    </resultMap>
+
+    <select id="queryAllHireUser" resultMap="hireUserMap">
+        select * from hire_user
+    </select>
+
+<!--    分页-->
+    <select id="findAllHireUser" resultMap="hireUserMap">
+        select * from hire_user
+        where hire_user_is_deleted = 0
+    </select>
+
+    <!--    多条件查询-->
+    <select id="conditionalQueries" resultMap="hireUserMap">
+        select * from hire_user
+        where
+        <if test="keyword1 != null and keyword2 == null">
+            hire_user_id like concat('%',#{keyword1},'%'),
+        </if>
+        <if test="keyword1 == null and keyword2 != null">
+            hire_user_name like concat('%',#{keyword2},'%'),
+        </if>
+        <if test="keyword1 != null and keyword2 != null">
+            hire_user_id like concat('%',#{keyword1},'%')
+        and hire_user_name like concat('%',#{keyword2},'%')
+        </if>
+    </select>
+
+    <!--    多条件查询-->
+    <select id="SearchHireUser" resultMap="hireUserMap">
+        select * from hire_user
+        where
+        <if test="hire_user_id != null and hire_user_name == null">
+            hire_user_id like concat('%',#{hire_user_id},'%'),
+        </if>
+        <if test="hire_user_id == null and hire_user_name != null">
+            hire_user_name like concat('%',#{hire_user_name},'%'),
+        </if>
+        <if test="hire_user_id != null and hire_user_name != null">
+            hire_user_id like concat('%',#{hire_user_id},'%')
+            and hire_user_name like concat('%',#{hire_user_name},'%')
+        </if>
+    </select>
+
+<!--    查找对应员工-->
+    <select id="queryHireUser" resultMap="hireUserMap">
+        select * from hire_user
+        where hire_user_id = #{hireUser_id}
+    </select>
+
+
+    <!--    更新员工状态-->
+    <update id="modifyHireUserStatus"  parameterType="com.Pojo.hireUser">
+        update hire_user
+        set hire_user_is_deleted = 1
+        where   hire_user_id = #{hireUser_id}
+    </update>
+
+
+    <!--    员工注册-->
+    <insert id="addHireUserById"  parameterType="com.Pojo.hireUser">
+        insert into hire_user(hire_user_id,hire_user_name,hire_user_identity,hire_user_password,hire_user_phone,hire_user_identitycard,
+                              hire_user_image,hire_user_revenue,hire_user_proportion,hire_user_createTime,hire_user_tradednumber,hire_user_is_deleted)
+        values (#{hire_user_id},#{hire_user_name},#{hire_user_identity},#{hire_user_password},#{hire_user_phone},#{hire_user_identitycard},
+                #{hire_user_image},#{hire_user_revenue},#{hire_user_proportion},#{hire_user_createTime},#{hire_user_tradednumber},#{hire_user_is_deleted})
+    </insert>
+
+    <update id="updateHireUser"  parameterType="com.Pojo.hireUser">
+        update hire_user
+        set hire_user_name=#{hire_user_name},
+            hire_user_identity=#{hire_user_identity},
+            hire_user_password=#{hire_user_password},
+            hire_user_phone=#{hire_user_phone},
+            hire_user_identitycard=#{hire_user_identitycard},
+            hire_user_revenue=#{hire_user_revenue},
+            hire_user_proportion=#{hire_user_proportion},
+            hire_user_tradednumber=#{hire_user_tradednumber}
+        where    hire_user_id=#{hire_user_id}
+    </update>
+
+    <select id="queryHireUserById" resultMap="hireUserMap">
+        select * from hire_user
+        where hire_user_id = #{hire_user_id}
+            and hire_user_is_deleted = 0
+    </select>
+
+    <!--    更新员工状态-->
+    <update id="deleteHireUserById"  parameterType="com.Pojo.hireUser">
+        update hire_user
+        set hire_user_is_deleted = 1
+        where   hire_user_id = #{hire_user_id}
+    </update>
+</mapper>

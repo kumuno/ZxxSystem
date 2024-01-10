@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.commodityMapper">
+    <resultMap id="commodityMap" type="com.Pojo.commodity">
+        <id column="commodity_id"  property="commodity_id" />
+        <result column="commodity_name"  property="commodity_name" />
+        <result column="commodity_introduce"  property="commodity_introduce" />
+        <result column="commodity_img"  property="commodity_img" />
+        <result column="commodity_carousel_Img"  property="commodity_carousel_Img" />
+        <result column="commodity_sales"  property="commodity_sales" />
+        <result column="commodity_type"  property="commodity_type" />
+        <result column="commodity_tag"  property="commodity_tag" />
+        <result column="commodity_state"  property="commodity_state" />
+<!--        <result column="address_id"  property="address_id" />-->
+        <result column="sendAddress"  property="sendAddress" />
+        <result column="sendPeopleName"  property="sendPeopleName" />
+        <result column="sendPhone"  property="sendPhone" />
+        <result column="commodity_flag"  property="commodity_flag" />
+        <!-- 用于关联commodityAttribute对象 -->
+        <association property="commodityAttribute" javaType="com.Pojo.commodityAttribute">
+            <id property="Attribute_id" column="Attribute_id"/>
+            <result property="commodity_id" column="commodity_id"/>
+            <result property="commodityAttribute_name" column="commodityAttribute_name"/>
+            <result property="commodityAttribute_state" column="commodityAttribute_state"/>
+        </association>
+        <!-- 用于关联commoditySonAttribute对象 -->
+        <association property="commoditySonAttribute" javaType="com.Pojo.commoditySonAttribute">
+            <id property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="Attribute_id" column="Attribute_id"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="commodity_price" column="commodity_price"/>
+            <result property="commodity_number" column="commodity_number"/>
+            <result property="commoditySonAttribute_state" column="commoditySonAttribute_state"/>
+        </association>
+    </resultMap>
+
+    <!--sql语句-->
+    <sql id="base_commodity_parameter">commodity_id,commodity_name,commodity_introduce,
+                                  commodity_sales,commodity_type,commodity_tag,commodity_state</sql>
+
+    <sql id="shelf_commodity_parameter">commodity_id,commodity_name,commodity_introduce,
+                                  commodity_sales,commodity_type,commodity_tag,commodity_state</sql>
+
+    <!--添加商品-->
+    <insert id="insertCommodity">
+        insert into Commodity(commodity_id,commodity_name,commodity_introduce,
+                                commodity_sales,commodity_type,commodity_tag,commodity_state)
+        values (#{commodity_id},#{commodity_name},#{commodity_introduce},#{commodity_sales},
+               #{commodity_type},#{commodity_tag},#{commodity_state})
+    </insert>
+
+    <!--删除商品-->
+    <delete id="deleteByCommodityId" >
+        delete
+        from Commodity
+        where commodity_id = #{commodity_id}
+    </delete>
+
+    <!--更新商品信息-->
+    <update id="updateByCommodityId">
+        update Commodity
+        set commodity_name        = #{commodity_name},
+            commodity_introduce   = #{commodity_introduce},
+            commodity_sales       = #{commodity_sales},
+            commodity_type        = #{commodity_type},
+            commodity_tag         = #{commodity_tag},
+            commodity_state       = #{commodity_state}
+        where commodity_id        = #{commodity_id}
+    </update>
+
+    <!--查询所有商品-->
+    <select id="findAllCommodity"  resultMap="commodityMap">
+        select *
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+         where A.commodity_id = B.commodity_id
+         and B.Attribute_id = C.Attribute_id
+         and A.commodity_state=1
+         and C.Attribute_id in
+            (select Attribute_id from commoditySonAttribute
+            where commoditySonAttribute_state = 1
+            group by Attribute_id
+            having commodity_price = min(commodity_price))
+    </select>
+
+    <!--按类型查询商品-->
+    <select id="findByTypeCommodity"  resultMap="commodityMap" parameterType="String">
+        select *
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+         where commodity_type = #{commodity_type}
+         and A.commodity_id = B.commodity_id
+         and B.Attribute_id = C.Attribute_id
+         and A.commodity_state=1
+         and C.Attribute_id in
+            (select Attribute_id from commoditySonAttribute
+            where commoditySonAttribute_state = 1
+            group by Attribute_id
+            having commodity_price = min(commodity_price))
+    </select>
+
+
+    <!--通过商品名字模糊搜索查询商品(显示最低价格)-->
+    <select id="findCommodityBySearch"  resultMap="commodityMap" parameterType="com.Pojo.commodity">
+        select *
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+         where A.commodity_name like concat('%',#{commodity_name},'%') COLLATE utf8mb4_general_ci
+         and A.commodity_id = B.commodity_id
+         and B.Attribute_id = C.Attribute_id
+         and A.commodity_state=1
+         and C.Attribute_id in
+            (
+            select Attribute_id from commoditySonAttribute
+            where commoditySonAttribute_state = 1
+            group by Attribute_id
+            having commodity_price = min(commodity_price)
+            )
+         ORDER BY
+         <foreach item="value" index="key" collection="sortMap.entrySet()" separator=",">
+            ${key} ${value}
+         </foreach>
+    </select>
+
+    <!--查找所有商品类型-->
+    <select id="findAllCommodityType"  resultType="java.util.Map">
+        select commodity_type, commodity_flag
+        from commodity
+    </select>
+
+    <!--添加搜索记录-->
+    <insert id="insertSearch"  parameterType="com.Pojo.search" useGeneratedKeys="true" keyColumn="search_id" keyProperty="search_id">
+        insert into search(search_id,user_id,search_content)
+        values (#{search_id},#{user_id},#{search_content})
+    </insert>
+
+    <!--按客户获取历史记录-->
+    <select id="findByUserSearch"  resultType="com.Pojo.search" parameterType="String">
+        select * from search where user_id = #{user_id}
+    </select>
+
+    <!--查询该用户有没有搜索过该关键词-->
+    <select id="findSearchWordByUser_idAndSearch_content"  resultType="com.Pojo.search" parameterType="String">
+        select * from search
+        where user_id = #{user_id}
+        and search_content = #{search_content}
+    </select>
+
+    <!-- 通过客户ID获取全部客户信息-->
+    <select id="selectByUserId" parameterType="String" resultType="com.Pojo.user">
+        select * from user
+        where user_id = #{user_id}
+        and user_is_deleted = 0
+    </select>
+
+    <!-- 客户清除个人搜索记录-->
+    <delete id="deleteByUserSearch" parameterType="java.lang.String">
+        delete
+        from search
+        where user_id = #{user_id}
+    </delete>
+
+
+    <select id="findByTypeCommodityByid" resultMap="commodityMap" parameterType="String">
+        select *
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+        where A.commodity_id = #{commodity_id}
+          and A.commodity_id = B.commodity_id
+          and B.Attribute_id = C.Attribute_id
+    </select>
+
+<!--    <select id="findAddress_idByCommodity_id" resultType="java.lang.String">-->
+<!--        select address_id-->
+<!--        from commodity-->
+<!--        where commodity_id = #{commodity_id}-->
+<!--    </select>-->
+
+<!--    直接购买方式：订单通过商品id、商品属性id和商品子属性id精准查询商品信息-->
+    <select id="oderFindOneCommodity" resultMap="commodityMap" parameterType="String">
+        select *
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+        where A.commodity_id = #{commodity_id}
+          and B.Attribute_id = #{Attribute_id}
+          and C.sonAttribute_id = #{sonAttribute_id}
+          and A.commodity_id = B.commodity_id
+          and B.Attribute_id = C.Attribute_id
+          and A.commodity_state=1
+    </select>
+
+    <!--更新商品的销售量库存量-->
+    <update id="updateCommodityNumber">
+        update commodity A, commoditySonAttribute B
+        set B.commodity_number = #{commodity_number},
+            A.commodity_sales = #{commodity_sales}
+        where A.commodity_id = #{commodity_id}
+          and B.sonAttribute_id = #{sonAttribute_id}
+          and A.commodity_state=1
+    </update>
+
+<!--    <select id="findAllType"  resultMap="String" parameterType="String">-->
+<!--        select *-->
+<!--        from commodity where commodity_type = #{commodity_type}-->
+<!--    </select>-->
+
+    <!--查询上架商品-->
+    <select id="findAllCommoditySelling" >
+        select <include refid="shelf_commodity_parameter"/>
+        from commodity
+        where
+        <if test="commodity_state != null and commodity_state != ''">
+            and commodity_state = 1
+        </if>
+        order by commodity_id desc
+    </select>
+
+    <!--查询下架商品-->
+    <select id="findAllCommodityNoSelling" >
+        select <include refid="shelf_commodity_parameter"/>
+        from commodity
+        where
+            <if test="commodity_state != null and commodity_state != ''">
+                and commodity_state = 0
+            </if>
+        order by commodity_id desc
+    </select>
+
+    <!--通过类别进行查询-->
+<!--    <select id="findByCommodityCategory" >-->
+<!--        select <include refid="base_commodity_parameter"/>-->
+<!--        from commodity-->
+<!--        where-->
+<!--        <if test="commodity_type != null and commodity_type != ''">-->
+<!--            and commodity_type =-->
+<!--        </if>-->
+<!--        order by commodity_id desc-->
+<!--    </select>-->
+
+    <!--按照售价大小&&销量进行从大到小排列-->
+<!--    <select id="Commodity" parameterType="Map" resultMap="commodityMap">-->
+<!--        select-->
+<!--        <include refid="base_commodity_parameter"/>-->
+<!--        from commodity-->
+<!--        <where>-->
+<!--            <if test="commodity_number!=null and commodity_number!=''">-->
+<!--                and commodity_number = #{commodity_number}-->
+<!--            </if>-->
+<!--            <if test="commodity_state!=null">-->
+<!--                and commodity_state = #{commodity_state}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        <if test="orderBy!=null and orderBy!=''">-->
+<!--            <choose>-->
+<!--                <when test="orderBy == 'price'">-->
+<!--                    order by commodity_price desc-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    order by commodity_sales desc-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--    </select>-->
+</mapper>
+

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.orderInformationMapper">
+    <resultMap id="orderInformationMap" type="com.Pojo.orderInformation">
+        <id column="order_id"  property="order_id" />
+        <result column="order_account"  property="order_account" />
+        <result column="user_id"  property="user_id" />
+        <result column="good_sumprice"  property="good_sumprice" />
+        <result column="order_sumPrice" property="order_sumPrice" />
+        <result column="order_paymentTime"  property="order_paymentTime" />
+        <result column="order_status"  property="order_status" />
+        <result column="order_way"  property="order_way" />
+        <result column="order_remark"  property="order_remark" />
+        <result column="address_id"  property="address_id" />
+        <result column="order_user_delete"  property="order_user_delete" />
+        <result column="order_refund_reason"  property="order_refund_reason" />
+        <result column="order_refund_instructions"  property="order_refund_instructions" />
+        <result column="order_refund_image"  property="order_refund_image" />
+        <result column="order_createTime"  property="order_createTime" />
+        <result column="order_newCreateTime"  property="order_newCreateTime" />
+        <result column="order_shipping_time"  property="order_shipping_time" />
+        <result column="order_confirm_time"  property="order_confirm_time" />
+        <result column="order_apply_refundTime"  property="order_apply_refundTime" />
+        <result column="order_refund_time"  property="order_refund_time" />
+        <result column="order_predict_predictTime"  property="order_predict_predictTime" />
+        <!-- 用于关联shipAddress对象 -->
+        <association property="shipAddress" javaType="com.Pojo.shipAddress">
+            <id property="address_id" column="address_id"/>
+            <result property="regionAddress" column="regionAddress"/>
+            <result property="detailAddress" column="detailAddress"/>
+            <result property="address_contact" column="address_contact"/>
+            <result property="address_phone" column="address_phone"/>
+            <result property="address_default" column="address_default"/>
+        </association>
+        <!-- 用于关联orderItem对象 -->
+        <collection property="orderItem" ofType="com.Pojo.orderItem">
+            <id property="orderItem_id" column="orderItem_id"/>
+            <result property="order_id" column="order_id"/>
+            <result property="commodity_id" column="commodity_id"/>
+            <result property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="orderItem_amount" column="orderItem_amount"/>
+            <result property="orderItem_goodname" column="orderItem_goodname"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="orderItem_goodimage" column="orderItem_goodimage"/>
+            <result property="orderItem_goodprice" column="orderItem_goodprice"/>
+            <result property="orderItem_createTime" column="orderItem_createTime"/>
+            <result property="orderItem_user_delete" column="orderItem_user_delete"/>
+        </collection>
+    </resultMap>
+
+    <!--添加总订单-->
+    <insert id="insertOrderInformation">
+        insert into orderInformation(order_id,order_account,user_id,good_sumprice,
+                    order_sumPrice,order_paymentTime,order_status,order_way,
+                    order_remark,address_id,order_user_delete,order_createTime,order_newCreateTime)
+        values (#{order_id},#{order_account},#{user_id},#{good_sumprice},#{order_sumPrice},
+               #{order_paymentTime},#{order_status},#{order_way},#{order_remark},
+               #{address_id},#{order_user_delete},#{order_createTime},#{order_newCreateTime})
+    </insert>
+
+    <!--修改总订单的状态-->
+    <update id="updateOrderStatus">
+        update orderInformation
+        set order_status        = #{order_status},
+        <if test="order_paymentTime != null">
+            order_paymentTime   = #{order_paymentTime},
+        </if>
+        <if test="order_newCreateTime != null">
+            order_newCreateTime = #{order_newCreateTime},
+        </if>
+        <if test="order_predict_predictTime != null">
+            order_predict_predictTime = #{order_predict_predictTime},
+        </if>
+        <if test="order_way != null">
+            order_way           = #{order_way}
+        </if>
+        <if test="order_confirm_time != null">
+            order_confirm_time  = #{order_confirm_time}
+        </if>
+        where order_id          = #{order_id}
+        and   user_id           =#{user_id}
+    </update>
+
+    <!--用户查询所有订单-->
+    <select id="findAllOrder"  resultMap="orderInformationMap" parameterType="String">
+        select *
+        from orderInformation A, orderItem B
+         where user_id = #{user_id}
+         and A.order_id = B.order_id
+         and A.order_user_delete = 0
+         and B.orderItem_user_delete = 0
+        <if test="order_status != null">
+         and  A.order_status like concat('%',#{order_status},'%')
+        </if>
+    </select>
+
+    <!--统计各类型的订单数量-->
+    <select id="orderByTypeNumber" resultType="int" >
+        select count(*) from orderInformation
+        where user_id = #{user_id}
+        <if test="order_status != null">
+        and   order_status like concat('%',#{order_status},'%')
+        </if>
+        and   order_user_delete = 0
+    </select>
+
+    <!--    通过order_id查询该订单的所有信息-->
+    <select id="selectByOrderId"  parameterType="String" resultMap="orderInformationMap">
+        select *
+        from orderInformation A, orderItem B, shipAddress C
+        where A.order_id = #{order_id}
+        and A.order_id = B.order_id
+        and A.address_id = C.address_id
+        and A.order_user_delete = 0
+        and B.orderItem_user_delete = 0
+    </select>
+
+    <!--用户取消或者删除订单-->
+    <update id="orderCancel">
+        update orderInformation A, orderItem B
+        set A.order_user_delete = 1,
+            B.orderItem_user_delete = 1
+        where A.order_id = #{order_id}
+        and   A.user_id  =#{user_id}
+        and   A.order_id =B.order_id
+        and   (A.order_status = '待付款' or A.order_status = '已收货')
+    </update>
+
+    <!--修改总订单的备注信息-->
+    <update id="updateOrderRemark">
+        update orderInformation
+        set order_remark        = #{order_remark}
+        where order_id          = #{order_id}
+        and   user_id           =#{user_id}
+    </update>
+
+    <!--用户申请退款-->
+    <update id="updateApplyOrderRefund">
+        update orderInformation
+        set order_refund_reason       = #{order_refund_reason},
+            order_refund_instructions = #{order_refund_instructions},
+            order_refund_image        = #{order_refund_image},
+            order_status              = '待退款',
+            order_apply_refundTime    = #{order_apply_refundTime}
+        where order_id = #{order_id}
+        and   user_id  = #{user_id}
+        and   order_user_delete = 0
+    </update>
+
+    <!--查找有没有关于地址id的订单-->
+    <select id="findOrderByAddress_id" resultMap="orderInformationMap" parameterType="String">
+        select * from orderInformation
+        where address_id = #{address_id}
+    </select>
+
+    <!--获取订单的总价-->
+    <select id="findOrderSumPriceByOrder_id" resultType="java.lang.Double" parameterType="String">
+        select order_sumPrice from orderInformation
+        where order_id = #{order_id}
+    </select>
+</mapper>

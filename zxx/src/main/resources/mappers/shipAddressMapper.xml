@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.shipAddressMapper">
+
+
+    <select id="findShipAdderssByaddress_id" resultType="com.Pojo.shipAddress">
+        select *
+        from shipAddress
+        where address_id = #{address_id} and address_state = 1
+    </select>
+
+    <insert id="insertshipAddress">
+        insert into shipAddress(address_id,user_id,regionAddress,detailAddress,address_contact,address_phone,address_default,address_state)
+        values (#{address_id},#{user_id},#{regionAddress},#{detailAddress},
+                #{address_contact},#{address_phone},#{address_default},1)
+    </insert>
+
+    <select id="findShipAdderssByuser_id" resultType="com.Pojo.shipAddress">
+        select *
+        from shipAddress
+        where user_id = #{user_id} and address_state = 1
+    </select>
+
+    <!--    <select id="findShipAdderssByuser_idAndAddress_id" resultType="com.Pojo.shipAddress">-->
+    <!--        select *-->
+    <!--        from shipaddress-->
+    <!--        where user_id = #{user_id}-->
+    <!--        and address_id = #{address_id}-->
+    <!--    </select>-->
+
+    <update id="updateshipAddressByaddress_id">
+        update shipAddress
+        <set>
+            <if test="regionAddress != null and regionAddress !=''">
+                regionAddress = #{regionAddress},
+            </if>
+            <if test="detailAddress != null and detailAddress !=''">
+                detailAddress = #{detailAddress},
+            </if>
+            <if test="address_contact != null and address_contact !=''">
+                address_contact = #{address_contact},
+            </if>
+            <if test="address_default != null">
+                address_default = #{address_default},
+            </if>
+            <if test="address_phone != null and address_phone !=''">
+                address_phone = #{address_phone}
+            </if>
+        </set>
+        where address_id = #{address_id} and address_state = 1;
+    </update>
+
+    <!--修改地址的状态-->
+    <update id="updateAddressByaddress_state" parameterType="string">
+        update shipAddress
+        set  address_state = 0
+        where address_id = #{address_id}
+    </update>
+
+    <select id="findShipAdderssByaddress_default" resultType="com.Pojo.shipAddress">
+        select *
+        from shipAddress
+        where address_default = 1
+          and user_id = #{user_id}
+          and address_state = 1
+    </select>
+
+    <delete id="deleteshipAddressByaddress_id">
+        delete
+        from shipAddress
+        where address_id = #{address_id}
+    </delete>
+</mapper>

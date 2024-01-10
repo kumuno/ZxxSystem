@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.commodityAttributeMapper">
+    <resultMap id="commodityAttributeMap" type="com.Pojo.commodityAttribute">
+        <id column="Attribute_id" property="Attribute_id" jdbcType="VARCHAR" javaType="string"/>
+        <result column="commodity_id" property="commodity_id" jdbcType="VARCHAR" javaType="string"/>
+        <result column="commodityAttribute_name" property="commodityAttribute_name" jdbcType="VARCHAR"
+                javaType="string"/>
+        <result column="commodityAttribute_state" property="commodityAttribute_state"/>
+    </resultMap>
+
+    <update id="updateCommodityAttribute" parameterType="com.Pojo.commodityAttribute">
+        update commodityAttribute
+        set commodity_id=#{commodity_id},
+            commodityAttribute_name=#{commodityAttribute_name}
+        where Attribute_id = #{Attribute_id}
+          and commodityAttribute_state = 1
+    </update>
+
+    <select id="queryCommodityAttribute" resultType="com.Pojo.commodityAttribute">
+        select *
+        from commodityAttribute
+        where Attribute_id = #{Attribute_id}
+    </select>
+
+<!--    查看商品属性是否存在-->
+    <select id="queryCommodityAttributeState" resultMap="commodityAttributeMap">
+        select *
+        from commodityAttribute
+        where Attribute_id = #{Attribute_id}
+          and commodityAttribute_state = 1
+    </select>
+
+    <!--    SET foreign_key_checks = 0;-->
+    <!--    添加商品属性-->
+    <insert id="addCommodityAttribute">
+        insert into commodityAttribute(Attribute_id, commodity_id, commodityAttribute_name, commodityAttribute_state)
+        values (#{Attribute_id}, #{commodity_id}, #{commodityAttribute_name}, #{commodityAttribute_state})
+    </insert>
+
+
+    <!--    删除对应商品属性-->
+    <update id="deleteCommodityAttribute" parameterType="String">
+        update commodityAttribute
+        set commodityAttribute_state = case when commodityAttribute_state= 0 then '1' else '0' end
+        where Attribute_id = #{Attribute_id};
+    </update>
+
+    <!--更新上下架状态-->
+    <update id="updateCommodityAttribute_state" parameterType="com.Pojo.commodityAttribute">
+        update commodityAttribute
+        set commodityAttribute_state = #{commodityAttribute_state}
+        where Attribute_id = #{Attribute_id};
+    </update>
+
+    <!--真正的删除对应商品通过commodity_id-->
+    <delete id="deleteByCommodityAttributeForever">
+        SET foreign_key_checks = 0;
+        delete from commodityAttribute where commodity_id = #{commodity_id};
+        SET foreign_key_checks = 1;
+    </delete>
+
+    <!--通过Attribute_id真正的删除对应商品-->
+    <delete id="deleteByCommodityAttributeByAttribute_id">
+        SET foreign_key_checks = 0;
+        delete from commodityAttribute where Attribute_id = #{Attribute_id};
+        SET foreign_key_checks = 1;
+    </delete>
+
+    <select id="getAllAttribute_id" resultType="String">
+        select Attribute_id
+        from commodityAttribute
+        where commodity_id = #{commodity_id}
+    </select>
+
+    <!--    通过commodity_id删除对应商品属性（改为下架状态）-->
+    <update id="deleteCommodityAttributeByCommodity_id" parameterType="String">
+        update commodityAttribute
+        set commodityAttribute_state = case when commodityAttribute_state= 0 then '1' else '0' end
+        where commodity_id = #{commodity_id};
+    </update>
+
+    <select id="getCommodityAttributeByCommodity_id" resultType="com.Pojo.commodityAttribute">
+        select *
+        from commodityAttribute
+        where commodity_id = #{commodity_id}
+    </select>
+</mapper>

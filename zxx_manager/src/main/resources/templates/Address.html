@@ -1,0 +1,401 @@
+<!--地址管理-->
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon"th:href="@{/images/01.jpg}" />
+    <title>快递地址管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/sapar.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/invoice_apply.css}">
+    <link rel="stylesheet" th:href="@{/css/layer.css}">
+    <link rel="stylesheet" th:href="@{/css/WdatePicker.css}">
+</head>
+
+<body>
+<!-- <div id="loading"><div id="loading-center"></div></div> -->
+<div class="wrapper">
+    <div class="iq-sidebar">
+        <div class="iq-sidebar-logo d-flex justify-content-between">
+            <a href="/Index">
+                <!-- <img src="images/01.jpg" class="img-fluid" alt=""> -->
+                <span>湛小鲜后台管理</span>
+            </a>
+
+        </div>
+        <div id="sidebar-scrollbar">
+            <nav class="iq-sidebar-menu">
+                <ul class="iq-menu">
+
+                    <li class="active">
+                        <a href="/Index" class="iq-waves-effect"><i class="ri-home-8-fill"></i><span>内部成员首页</span></a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                class="ri-settings-5-fill"></i><span>营销情况</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/Index">营销情况</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                class="ri-user-settings-fill"></i><span>商品管理 </span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/CommodityList">商品列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-todo-fill"></i><span>订单管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/Orders">订单管理</a></li>
+                        </ul>
+                    </li>
+                    <!--                    <li>-->
+<!--                        <a href="javascript:void(0);" class="iq-waves-effect"><i-->
+<!--                                class="ri-file-edit-fill"></i><span>快递管理</span><i-->
+<!--                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                        <ul class="iq-submenu">-->
+<!--                            <li><a href="/Address">快递地址管理</a></li>-->
+<!--                            <li><a href="/Delivery">配送管理</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                class="ri-alarm-warning-fill"></i><span>优惠券 </span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/Coupons">优惠券</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-bar-chart-2-fill"></i><span>员工管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/HireUser_management">员工管理 </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-barricade-fill"></i><span>内部成员管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/InternalUser_management">内部成员管理 </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                class="ri-battery-2-charge-line"></i><span>顾客管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/User_management">顾客管理 </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-pie-chart-2-fill"></i><span>个人中心
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul class="iq-submenu">
+                            <li><a href="/Mine">查看个人信息</a></li>
+                            <!--<li><a href="/Member_info">查看成员信息</a></li>-->
+                            <li><a href="/Modify_Info">修改个人信息</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <div class="p-3"></div>
+        </div>
+    </div>
+
+    <!-- Page Content  -->
+    <div id="content-page" class="content-page">
+        <!-- TOP Nav Bar -->
+        <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <div class="iq-search-bar">
+                        <form action="#" class="searchbox">
+                            <!-- 按照编号查找 -->
+                            <span class="text search-input keyword">欢迎来到湛小鲜后台管理系统</span>
+                        </form>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list">
+                            <!-- 全屏图标 -->
+                            <li class="nav-item iq-full-screen">
+                                <a href="#" class="iq-waves-effect" id="btnFullscreen"><i
+                                        class="ri-fullscreen-line"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-list">
+                        <li>
+                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                               <img th:src="@{/images/01.jpg}" class="img-fluid rounded mr-3" alt="boss">
+                                <div class="caption">
+                                    <h6 class="mb-0 line-height">湛小鲜</h6>
+                                    <span class="font-size-12">管理员</span>
+                                </div>
+                            </a>
+                            <div class="iq-sub-dropdown iq-boss-dropdown">
+                                <div class="iq-card shadow-none m-0">
+                                    <div class="iq-card-body p-0 ">
+                                        <div class="bg-primary p-3">
+                                            <h5 class="mb-0 text-white line-height">你好-湛小鲜</h5>
+                                        </div>
+                                        <a href="/Mine" class="iq-sub-card iq-bg-primary-hover">
+                                            <div class="media align-items-center">
+                                                <div class="rounded iq-card-icon iq-bg-primary">
+                                                    <i class="ri-file-boss-line"></i>
+                                                </div>
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-0 ">个人中心</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <!--                                 <a href="/Modify_Info" class="iq-sub-card iq-bg-primary-hover">-->
+<!--                                    <div class="media align-items-center">-->
+<!--                                       <div class="rounded iq-card-icon iq-bg-primary">-->
+<!--                                          <i class="ri-profile-line"></i>-->
+<!--                                       </div>-->
+<!--                                       <div class="media-body ml-3">-->
+<!--                                          <h6 class="mb-0 ">修改个人信息</h6>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                 </a>-->
+                                        <div class="d-inline-block w-100 text-center p-3">
+                                            <a class="bg-primary iq-sign-btn" href="/Login" role="button">退出登录<i
+                                                    class="ri-login-box-line ml-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+        <!--主体-->
+        <div class="container-fluid">
+            <div class="iq-card">
+                <div id="saper-container">
+                    <div id="saper-hd"></div>
+                    <div id="saper-bd">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title" style="font-size: 24px">快递管理</h4>
+                            </div>
+                        </div>
+
+                        <div class="subfiled-style2 clearfix">
+                            <h2>请选择邮寄方式</h2>
+                        </div>
+                        <div class="subfiled-content">
+                            <form class="saper-form">
+                                <div class="kv-item clearfix">
+                                    <label>顺丰：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">顺丰到付</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">国内其他城市预付22元</span>
+                            </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="kv-item clearfix">
+                                    <label>自取：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市</span>
+                            </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="kv-item clearfix">
+                                    <label>天天：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">国内其他城市15元</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市到付10，其他省20</span>
+                            </span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="kv-item clearfix">
+                                    <label>韵达：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市6元</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">国内其他城市15元</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市到付10，其他省20</span>
+                            </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="kv-item clearfix">
+                                    <label>EMS：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">国内城市不支持到付，预付22</span>
+                            </span>
+                                    </div>
+
+                                </div>
+                                <div class="kv-item clearfix">
+                                    <label>平邮：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">国内城市6元</span>
+                            </span>
+
+                                    </div>
+                                    <div class="kv-item-tip"><span
+                                            class="impInfo">平邮安全性较差，为确保安全送达，不推荐此选择，若有遗失，责任自负</span></div>
+                                </div>
+
+                                <div class="kv-item clearfix">
+                                    <label>长途汽车：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市内</span>
+                            </span>
+
+                                        <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">湛江市外</span>
+                            </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="kv-item clearfix">
+                                    <label>其他：</label>
+                                    <div class="kv-item-content">
+                            <span class="choose">
+                                <input type="radio" name="type">
+                                <span class="text">与我的其他已申请快递同寄</span>
+                            </span>
+
+                                        <input type="text" placeholder="请填写其他已申请快件名称"/>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="subfiled-style2 clearfix">
+                            <h2>邮寄信息</h2>
+                        </div>
+                        <div class="subfiled-content">
+                            <div class="kv-item clearfix">
+                                <label>收件人姓名：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" placeholder="填写收件人姓名"/>
+                                </div>
+
+                            </div>
+
+                            <div class="kv-item clearfix">
+                                <label>收件人手机号：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" placeholder="填写收件人手机号"/>
+                                </div>
+
+                            </div>
+
+                            <div class="kv-item clearfix">
+                                <label>收件人电话：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" placeholder="填写收件人电话"/>
+                                </div>
+
+                            </div>
+
+                            <div class="kv-item clearfix">
+                                <label>邮编：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" placeholder="邮编"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="subfiled-style2 clearfix">
+                            <h2>填写备注</h2>
+                        </div>
+                        <div class="subfiled-content">
+                            <div class="kv-item clearfix">
+                                <label>备注信息：</label>
+                                <div class="kv-item-content">
+                                    <textarea placeholder="填写你想要备注的内容哦"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="saper-ft"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/smooth-scrollbar.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
+    <script th:src="@{/js/echarts.min.js}"></script>
+    <script th:src="@{/js/axios-0.18.0.js}"></script>
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/sapar.js}"></script>
+    <script th:src="@{/js/WdatePicker.js}"></script>
+
+
+</body>
+
+</html>

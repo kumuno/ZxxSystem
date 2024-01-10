@@ -1,0 +1,422 @@
+<!--注册-->
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" th:href="@{/css/style.css}">
+   <title>注册账号</title>
+</head>
+<style>
+   .imgtop{
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      left: 1000px;
+      top: 200px;
+   }
+</style>
+<body>
+   <!-- <div id="loading"><div id="loading-center"></div></div> -->
+   <div class="wrapper" id="app">
+      <div class="iq-sidebar">
+         <div class="iq-sidebar-logo d-flex justify-content-between">
+            <a href="/Index">
+               <!-- <img src="images/01.jpg" class="img-fluid" alt=""> -->
+               <span>湛小鲜后台管理</span>
+            </a>
+
+         </div>
+         <div id="sidebar-scrollbar">
+            <nav class="iq-sidebar-menu">
+               <ul class="iq-menu">
+
+                  <li class="active">
+                     <a href="/Index" class="iq-waves-effect"><i class="ri-home-8-fill"></i><span>内部成员首页</span></a>
+                  </li>
+
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i
+                             class="ri-settings-5-fill"></i><span>营销情况</span><i
+                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/Index">营销情况</a></li>
+                     </ul>
+                  </li>
+
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i
+                             class="ri-user-settings-fill"></i><span>商品管理 </span><i
+                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/CommodityList">商品列表</a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-todo-fill"></i><span>订单管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/Orders">订单管理</a></li>
+                     </ul>
+                  </li>
+                  <!--                    <li>-->
+<!--                        <a href="javascript:void(0);" class="iq-waves-effect"><i-->
+<!--                                class="ri-file-edit-fill"></i><span>快递管理</span><i-->
+<!--                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                        <ul class="iq-submenu">-->
+<!--                            <li><a href="/Address">快递地址管理</a></li>-->
+<!--                            <li><a href="/Delivery">配送管理</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i
+                             class="ri-alarm-warning-fill"></i><span>优惠券 </span><i
+                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/Coupons">优惠券</a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-bar-chart-2-fill"></i><span>员工管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/HireUser_management">员工管理 </a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-barricade-fill"></i><span>内部成员管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/InternalUser_management">内部成员管理 </a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-battery-2-charge-line"></i><span>顾客管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/User_management">顾客管理 </a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-pie-chart-2-fill"></i><span>个人中心
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     <ul class="iq-submenu">
+                        <li><a href="/Mine">查看个人信息</a></li>
+                        <!--<li><a href="/Member_info">查看成员信息</a></li>-->
+<!--                        <li><a href="/Modify_Info">修改个人信息</a></li>-->
+                        <li><a href="/Boss_management">注册账号</a></li>
+                     </ul>
+                  </li>
+               </ul>
+            </nav>
+            <div class="p-3"></div>
+         </div>
+      </div>
+
+      <!-- Page Content  -->
+      <div id="content-page" class="content-page">
+         <!-- TOP Nav Bar -->
+         <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+
+               <nav class="navbar navbar-expand-lg navbar-light p-0">
+                  <div class="iq-search-bar">
+                     <form action="#" class="searchbox">
+                        <!-- 按照编号查找 -->
+                        <input type="text" class="text search-input keyword" placeholder="请输入您所要搜索的编号">
+                        <a class="search-link" href="#"><i class="ri-search-line" @click="query1()"></i></a>
+                     </form>
+                  </div>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav ml-auto navbar-list">
+                        <!-- 全屏图标 -->
+                        <li class="nav-item iq-full-screen">
+                           <a href="#" class="iq-waves-effect" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a>
+                        </li>
+                     </ul>
+                  </div>
+                  <ul class="navbar-list">
+                     <li>
+                        <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                           <img src="/images/01.jpg" class="img-fluid rounded mr-3" alt="boss">
+                           <div class="caption">
+                              <h6 class="mb-0 line-height">湛小鲜</h6>
+                              <span class="font-size-12">管理员</span>
+                           </div>
+                        </a>
+                        <div class="iq-sub-dropdown iq-boss-dropdown">
+                           <div class="iq-card shadow-none m-0">
+                              <div class="iq-card-body p-0 ">
+                                 <div class="bg-primary p-3">
+                                    <h5 class="mb-0 text-white line-height">你好-湛小鲜</h5>
+                                 </div>
+                                 <a href="/Mine" class="iq-sub-card iq-bg-primary-hover">
+                                    <div class="media align-items-center">
+                                       <div class="rounded iq-card-icon iq-bg-primary">
+                                          <i class="ri-file-boss-line"></i>
+                                       </div>
+                                       <div class="media-body ml-3">
+                                          <h6 class="mb-0 ">个人中心</h6>
+                                       </div>
+                                    </div>
+                                 </a>
+<!--                                 <a href="/Modify_Info" class="iq-sub-card iq-bg-primary-hover">-->
+<!--                                    <div class="media align-items-center">-->
+<!--                                       <div class="rounded iq-card-icon iq-bg-primary">-->
+<!--                                          <i class="ri-profile-line"></i>-->
+<!--                                       </div>-->
+<!--                                       <div class="media-body ml-3">-->
+<!--                                          <h6 class="mb-0 ">注册内部成员账号</h6>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                 </a>-->
+                                 <div class="d-inline-block w-100 text-center p-3">
+                                    <a class="bg-primary iq-sign-btn" href="/signIn" role="button">退出登录<i
+                                            class="ri-login-box-line ml-2"></i></a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </nav>
+
+            </div>
+         </div>
+         <!-- TOP Nav Bar END -->
+         <div class="content-wrapper">
+            <div class="content-header ">
+               <div class="content-header-left mb-2 clearfix">
+                  <h3 class="content-header-title mb-0 pull-left">注册Boos账号</h3>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-content">
+                  <div class="card-body">
+                     <div class="form1 form3">
+                        <ul class="row">
+                           <li class="col-sm-10 col-xs-12">
+                              <span>邮箱：</span>
+                              <input type="text" class="form-control" style="width: 600px;"  v-model="Email"  @blur="checkemail()">
+                              <span class="mr-msg" style="position: absolute;width:120px;top: -3px;left: 696px;color: red">{{msg_email}}</span>
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <span>手机号码：</span><input type="text" class="form-control" style="width: 600px;" v-model="phone" @blur="checkphone()">
+                              <span class="mr-msg" style="position: absolute;width:120px;top: -3px;left: 696px;color: red">{{msg_phone}}</span>
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <span>密码：</span><input type="password" class="form-control" style="width: 600px;" v-model="password" @blur="checkpassword()">
+                              <span class="mr-msg" style="position: absolute;width:120px;top: -3px;left: 696px;color: red">{{msg_password}}</span>
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <span>确认密码：</span>
+                              <input type="password" class="form-control" style="width: 600px;" v-model="passwordplus" @blur="checkpasswordplus()">
+                              <span class="mr-msg" style="position: absolute;width:120px;top: -3px;left: 696px;color: red">{{msg_passwordplus}}</span>
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <span>验证码：</span>
+                              <input type="text" class="form-control" style="width: 390px;" v-model="code">
+                              <span class="mr-msg" style="position: absolute;width:120px;top: -3px;left: 696px;color: red">{{msg_code}}</span>
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <input type="submit" id="btnEmail" class="btn btn-primary" style="position: absolute;top:-44px;left: 478px;width: 200px;height:34px;" v-model="btn"  value="获取验证码" @click="codebtn()">
+                           </li>
+                           <li class="col-sm-10 col-xs-12">
+                              <input type="submit" class="btn btn-primary" style="width: 300px;height: 45px;" value="注册" @click="register($event)">
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="imgtop">
+                  <span>{{ID_magess}}</span>
+                  <span>{{magess}}</span>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+   <script th:src="@{/js/jquery.min.js}"></script>
+   <script th:src="@{/js/bootstrap.min.js}"></script>
+   <script th:src="@{/js/smooth-scrollbar.js}"></script>
+   <script th:src="@{/js/custom.js}"></script>
+   <script th:src="@{/js/echarts.min.js}"></script>
+   <script th:src="@{/js/axios-0.18.0.js}"></script>
+   <script th:src="@{/js/vue.js}"></script>
+</body>
+<script>
+
+   new Vue({
+      el: '#app',
+      data: {
+         Email:"",
+         msg_email:"",
+         phone:"",
+         msg_phone:"",
+         password:"",
+         msg_password:"",
+         passwordplus:"",
+         msg_passwordplus:"",
+         msg_phoneplus:"",
+         code:"",
+         msg_code:"",
+         btn:"获取验证码",
+         disab:false,
+         c:60,
+         ID_magess:"",
+         magess:""
+
+      },
+      methods: {
+         //校验部分
+
+         checkemail:function(){
+            let z_reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            // let z_reg=/^[1-9][0-9]{4,}@qq.com$/;
+            if(this.Email.length==0){
+               this.msg_email="邮箱不能为空";
+            }else if(!z_reg.test(this.Email))
+            {
+               this.msg_email="请输入正确的格式";
+            }else{
+               this.msg_email="✅";
+               return true;
+            }
+            return false;
+         },
+         checkphone:function(){
+            let z_rph=/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+            if(this.phone.length==0){
+               this.msg_phone="手机号码不能为空";
+            }else if(!z_rph.test(this.phone))
+            {
+               this.msg_phone="请输入正确的格式";
+            }else{
+               this.msg_phone="✅";
+               return true;
+            }
+            return false;
+         },
+         checkpassword:function(){
+            var word=this.password.trim();
+            var count=0;
+            if(/[0-9]/.test(word)){
+               count++;
+            }
+            if(/[A-Za-z]/.test(word))
+            {
+               count++;
+            }
+            if(/[^0-9A-Za-z]/.test(word)){
+               count++;
+            }
+            if (word.length==0){
+               this.msg_password="密码不能为空";
+               return false;
+            }else if(count==3&& word.length>=6)
+            {
+               this.msg_password="高强度";
+            }else if(count==2&& word.length>=6){
+               this.msg_password="中强度";
+            }else{
+               this.msg_password="低强度";
+            }
+            return true;
+         },
+
+         checkpasswordplus:function(){
+            var password=this.password;
+            var passwordplus=this.passwordplus;
+            if(passwordplus.length==0){
+               this.msg_passwordplus="确认密码不能为空";
+            }else if (password == passwordplus){
+               this.msg_passwordplus="✅";
+               return true;
+            }else {
+               this.msg_passwordplus="密码不一致";
+               return false;
+            }
+         },
+
+         codebtn:function (){
+            var that =this;
+            if(this.checkemail()){
+               var result=axios({
+                  url:"/BossController/sendEmail",// 请求服务端的路径
+                  method:"post",//请求方式 get , post
+                  params:{ // 发送get请求提交的参数
+                     email:this.Email,
+                  }
+               });
+               result.then(function(res){
+                  console.log(res.data.code);
+                  if (res.data.code == 200) {
+                     this.disab=true;
+                     document.getElementById("btnEmail").disabled=this.disab;
+                     setTimeout(that.enableCodeBtn,1000);
+                  } else {
+                     this.msg_code="发送失败！";
+                  }
+               });
+            }
+
+         },
+
+         enableCodeBtn:function (){
+            if (this.c>0){
+               this.btn=this.c+"秒后重新获取";
+               setTimeout(this.enableCodeBtn,1000);
+               this.c--;
+            }else{
+               this.disab=false;
+               document.getElementById("btnEmail").disabled=this.disab;
+               this.btn="获取验证码";
+               this.c=60;
+            }
+         },
+
+         register:function (event){
+            var that=this;
+            let z_rcode=/^[0-9]\d{5}$/;
+            if (this.code.length==0){
+               this.msg_code="验证码不能为空";
+            }else if(!z_rcode.test(this.code)){
+               this.msg_code="格式错误"
+            }else {
+               if(this.checkemail()&this.checkphone()&this.checkpassword()&this.checkpasswordplus()){
+                  this.msg_code="";
+                  var result=axios({
+                     url:"/BossController/register",// 请求服务端的路径
+                     method:"post",//请求方式 get , post
+                     params:{ // 发送get请求提交的参数
+                        email:this.Email,
+                        phone:this.phone,
+                        password:this.password,
+                        code:this.code,
+                     }
+                  });
+                  result.then(function(res){
+                     console.log(res.data.code);
+                     if (res.data.code == 200) {
+                        that.ID_magess=res.data.message;
+                        that.magess="通过邮箱进行登录"
+                     } else {
+                        that.ID_magess=res.data.message;
+                     }
+                  });
+               }else{
+                  event.preventDefault();
+               }
+            }
+         },
+
+      }
+   })
+
+</script>
+
+</html>

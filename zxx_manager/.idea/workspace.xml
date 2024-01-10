@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="124c64f6-2035-4515-bb53-95ff8bfec6a8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/WdatePicker.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/common.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/invoice_apply.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/sapar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/orderInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/orderInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/shipAddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/shipAddressController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/shopCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Controller/shopCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/commodityAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/commodityAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/commoditySonAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/commoditySonAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/orderInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/orderInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/orderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/orderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/shipAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/Pojo/shipAddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/commodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/commodityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/orderInformationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/orderInformationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/orderItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/orderItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/shipAddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/shipAddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/shopCartMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/mapper/shopCartMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/orderInformationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/orderInformationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/shipAddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/shipAddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/shopCartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/service/impl/shopCartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/service/orderInformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/service/orderInformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/java/com/service/shopCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/java/com/service/shopCartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/commodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/commodityMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/orderInformationMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/orderInformationMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/orderItemMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/orderItemMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/shipAddressMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/shipAddressMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/shopCartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/shopCartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/userMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../zxx/src/main/resources/mappers/userMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/commodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/commodityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/couponsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/couponsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/hireUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/hireUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/internalUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/internalUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/orderInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/orderInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/orderItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/orderItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/shipAddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/shipAddressController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/shopCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/shopCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/InternalUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/InternalUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/commodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/commodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/coupons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/coupons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/hireUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/hireUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/orderInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/orderInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/orderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/orderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/shipAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/shipAddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/shopCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/shopCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Pojo/user.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Pojo/user.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ZxxManagerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ZxxManagerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/filter/LoginFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/commodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/commodityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/hireUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/hireUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/internalUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/internalUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/orderInformationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/orderInformationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/orderItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/orderItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/shipAddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/shipAddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/shopCartMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/shopCartMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mapper/userMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mapper/userMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/util/Database.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/util/HttpClientUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/util/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/util/RedisUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/util/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="zxx@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="zxx@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="zxx@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="zxx: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-43152348">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="427" />
+          <entry key="txt" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="427" />
+          <entry key="PLAIN_TEXT" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="commodityattribute" value="1" />
+          <entry key="html" value="4" />
+          <entry key="orderinformation" value="1" />
+          <entry key="orderitem" value="1" />
+          <entry key="sql" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Database Element" value="3" />
+          <entry key="HTML" value="4" />
+          <entry key="Scratch" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="zxx_manager" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/Commodity_details.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/Order_details.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3060">
+              <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/resources/templates/Commodity_details.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\software\m2\repository" />
+        <option name="mavenHome" value="D:/javaweb/apache-maven-3.5.4" />
+        <option name="userSettingsFile" value="D:\javaweb\apache-maven-3.5.4\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-8" />
+    <option name="width" value="977" />
+    <option name="height" value="1028" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zxx_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zxx_manager" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\zxx\zxx_system0327\zxx_system\zxx_manager\src\main\resources\static\js" />
+      <recent name="D:\zxx\zxx_system0327\zxx_system\zxx_manager\src\main\resources\static\css" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="ZxxManagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="zxx_manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ZxxManagerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="124c64f6-2035-4515-bb53-95ff8bfec6a8" name="Default Changelist" comment="" />
+      <created>1679905619908</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679905619908</updated>
+      <workItem from="1679905625162" duration="6944000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="6944000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="17" y="66" width="951" height="794" extended-state="0" />
+    <layout>
+      <window_info id="Designer" />
+      <window_info id="Image Layers" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" sideWeight="0.5017794" side_tool="true" weight="0.28331468" />
+      <window_info id="Capture Tool" />
+      <window_info id="Web" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49822065" visible="true" weight="0.28331468" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Console" weight="0.0" />
+      <window_info anchor="bottom" id="Spring" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.3295129" />
+      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2613293" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Database" weight="0.32908848" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/0a3f5a3b-af03-484e-96d6-178b80a40298/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://0a3f5a3b-af03-484e-96d6-178b80a40298/schema/zxx/table/orderinformation">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://0a3f5a3b-af03-484e-96d6-178b80a40298/schema/zxx/table/orderitem">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://0a3f5a3b-af03-484e-96d6-178b80a40298/schema/zxx/table/commodityattribute">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/Orders.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5814" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/Order_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3060">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/Commodity_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

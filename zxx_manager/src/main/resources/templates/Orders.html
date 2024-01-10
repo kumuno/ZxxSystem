@@ -1,0 +1,555 @@
+<!--订单管理-->
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon"th:href="@{/images/01.jpg}" />
+    <title>订单管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div id="app">
+    <!-- <div id="loading"><div id="loading-center"></div></div> -->
+    <div class="wrapper">
+        <div class="iq-sidebar">
+            <div class="iq-sidebar-logo d-flex justify-content-between">
+                <a href="/Index">
+                    <!-- <img src="images/01.jpg" class="img-fluid" alt=""> -->
+                    <span>湛小鲜后台管理</span>
+                </a>
+
+            </div>
+            <div id="sidebar-scrollbar">
+                <nav class="iq-sidebar-menu">
+                    <ul class="iq-menu">
+
+                        <li class="active">
+                            <a href="/Index" class="iq-waves-effect"><i
+                                    class="ri-home-8-fill"></i><span>内部成员首页</span></a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-settings-5-fill"></i><span>营销情况</span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Index">营销情况</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-user-settings-fill"></i><span>商品管理 </span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/CommodityList">商品列表</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-todo-fill"></i><span>订单管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Orders">订单管理</a></li>
+                            </ul>
+                        </li>
+                        <!--                    <li>-->
+<!--                        <a href="javascript:void(0);" class="iq-waves-effect"><i-->
+<!--                                class="ri-file-edit-fill"></i><span>快递管理</span><i-->
+<!--                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                        <ul class="iq-submenu">-->
+<!--                            <li><a href="/Address">快递地址管理</a></li>-->
+<!--                            <li><a href="/Delivery">配送管理</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-alarm-warning-fill"></i><span>优惠券 </span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Coupons">优惠券</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-bar-chart-2-fill"></i><span>员工管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/HireUser_management">员工管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-barricade-fill"></i><span>内部成员管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/InternalUser_management">内部成员管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-battery-2-charge-line"></i><span>顾客管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/User_management">顾客管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-pie-chart-2-fill"></i><span>个人中心
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Mine">查看个人信息</a></li>
+                                <!--<li><a href="/Member_info">查看成员信息</a></li>-->
+                                <!--                                <li><a href="/Modify_Info">修改个人信息</a></li>-->
+                                <li><a href="/Boss_management">注册账号</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div class="p-3"></div>
+            </div>
+        </div>
+
+        <!-- Page Content  -->
+        <div id="content-page" class="content-page">
+            <!-- TOP Nav Bar -->
+            <div class="iq-top-navbar">
+                <div class="iq-navbar-custom">
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <div class="iq-search-bar">
+                            <form action="#" class="searchbox">
+                                <span class="text search-input keyword">欢迎来到湛小鲜后台管理系统</span>
+                            </form>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto navbar-list">
+                                <!-- 全屏图标 -->
+                                <li class="nav-item iq-full-screen">
+                                    <a href="#" class="iq-waves-effect" id="btnFullscreen"><i
+                                            class="ri-fullscreen-line"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="navbar-list">
+                            <li>
+                                <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                                   <img th:src="@{/images/01.jpg}" class="img-fluid rounded mr-3" alt="boss">
+                                    <div class="caption">
+                                        <h6 class="mb-0 line-height">湛小鲜</h6>
+                                        <span class="font-size-12">管理员</span>
+                                    </div>
+                                </a>
+                                <div class="iq-sub-dropdown iq-boss-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white line-height">你好-湛小鲜</h5>
+                                            </div>
+                                            <a href="/Mine" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="media align-items-center">
+                                                    <div class="rounded iq-card-icon iq-bg-primary">
+                                                        <i class="ri-file-boss-line"></i>
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">个人中心</h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <!--                                 <a href="/Modify_Info" class="iq-sub-card iq-bg-primary-hover">-->
+<!--                                    <div class="media align-items-center">-->
+<!--                                       <div class="rounded iq-card-icon iq-bg-primary">-->
+<!--                                          <i class="ri-profile-line"></i>-->
+<!--                                       </div>-->
+<!--                                       <div class="media-body ml-3">-->
+<!--                                          <h6 class="mb-0 ">修改个人信息</h6>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                 </a>-->
+                                            <div class="d-inline-block w-100 text-center p-3">
+                                                <a class="bg-primary iq-sign-btn" href="/signIn" role="button">退出登录<i
+                                                        class="ri-login-box-line ml-2"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <!-- TOP Nav Bar END -->
+            <div class="container-fluid">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">订单管理</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <div class="selbox">
+                            <div class="form1">
+                                <ul class="row">
+                                    <li class="col-xs-4">
+                                        <span>订单编号：</span>
+                                        <input type="text" v-model="keyword1" class="form-control keyword1">
+                                    </li>
+                                    <li class="col-xs-4">
+                                        <span>用户编号：</span>
+                                        <input type="text" v-model="keyword2" class="form-control keyword2">
+                                    </li>
+                                    <li class="col-xs-4" style="padding-left: 10px">
+                                        <a class="btn btn-primary" @click="query()">查询</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>订单总编号</th>
+                            <th>用户编号</th>
+                            <th>地址编号</th>
+                            <th>商品总数量</th>
+                            <th>订单总价</th>
+                            <th>订单状态</th>
+                            <th>支付方式</th>
+                            <th>是否被删除</th>
+                            <th>操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="orderList in orderInformationList">
+                            <td class="order_id">{{orderList.order_id}}</td>
+                            <td>{{orderList.user_id}}</td>
+                            <td>{{orderList.address_id}}</td>
+                            <td>{{orderList.order_account}}</td>
+                            <td>{{orderList.order_sumPrice}}</td>
+                            <td><span class="badge badge-info">{{orderList.order_status}}</span></td>
+                            <td><span class="badge badge-warning">{{orderList.order_way}}</span></td>
+                            <td class="order_user_delete" v-if="orderList.order_user_delete == 1">是</td>
+                            <td class="order_user_delete" v-else>否</td>
+                            <td><a @click="queryOrderList($event)">查看详情</a>
+                                <a href="javaScript:;" v-if="orderList.order_user_delete == 1"
+                                   @click="returnDeleteOrderList($event)">回归</a>
+                                <a href="javaScript:;" v-else @click="deleteOrderList($event)">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation" class="page">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" @click="prePageWay($event)" aria-label="Previous">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            </li>
+                            <li :class="index==pageNum? 'page-item active':'page-item'"
+                                v-for="index in navigatepageNums">
+                                <a class="page-link" name="clickPage" @click="clickPageWay($event)" href="javascript:;">{{index}}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" @click="nextPageWay($event)" aria-label="Next">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/smooth-scrollbar.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+<script th:src="@{/js/echarts.min.js}"></script>
+<script th:src="@{/js/axios-0.18.0.js}"></script>
+<script th:src="@{/js/vue.js}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            orderInformationList: [],
+            // 新订单
+            neworderInformation: [
+                {
+                    order_id: "",
+                    user_id: "",
+                    order_status: "",
+                    order_way: "",
+                    commodity_id: "",
+                    orderItem_goodname: "",
+                    orderItem_amount: 0.00,
+                    order_sumPrice: 0.00
+                }
+            ],
+            // 复选框选中数据集合，点击复选框后一行数据以对象为单位全部保存进该数组
+            multipleSelection: [],
+            //所有导航页号
+            navigatepageNums: [],
+            //总页数
+            pages: 0,
+            //每页显示数
+            pageSize: 0,
+            //总条目数
+            totalCount: 0,
+            // 当前页码
+            pageNum: 1,
+            //是否有上一页
+            hasPreviousPage: false,
+            //是否有下一页
+            hasNextPage: false,
+            // 是否为第一页
+            isFirstPage: false,
+            //	是否为最后一页
+            isLastPage: false,
+            //上一页
+            prePage: 0,
+            // 下一页
+            nextPage: 0,
+            if_Search: 0,//判断该页面的数据是否是查询后的数据
+            keyword1:'',//第一个输入框的值
+            keyword2:''//第二个输入框的值
+        },
+        mounted() {//页面初始化方法
+            // 请求后端数据
+            axios
+                .get('/findAllUserOrder')
+                .then(response => (//请求成功
+                    this.updateData(response)
+                ))
+                .catch(function (error) {
+                    // console.log(error);//请求失败
+                })
+        },
+        methods: {//监听方法  click事件等，执行drawFeatures方法
+
+            //更新页面数据的方法封装
+            updateData(response) {
+                console.log(response.data)//返回的数据
+                this.orderInformationList = response.data.list,
+                    this.totalCount = response.data.total,//设置总条数
+                    this.pageSize = response.data.pageSize,//设置当前页面显示的数据条目
+                    this.pageNum = response.data.pageNum,//设置当前页码
+                    this.pages = response.data.pages,//设置总页数
+                    this.hasPreviousPage = response.data.hasPreviousPage,//是否有上一页
+                    this.hasNextPage = response.data.hasNextPage,//是否有下一页
+                    this.isFirstPage = response.data.isFirstPage,//是否为第一页
+                    this.isLastPage = response.data.isLastPage,//是否为最后一页
+                    this.prePage = response.data.prePage,//上一页
+                    this.nextPage = response.data.nextPage//下一页
+                this.navigatepageNums = response.data.navigatepageNums//设置所有导航页号
+            },
+            //上一页
+            prePageWay(e) {
+                if (this.if_Search == 1){//判断是否为查询过的页面
+                    if (this.hasPreviousPage == true) {
+                        axios.get('/SearchUserOrder?pageNum=' + this.prePage + '&order_id=' + this.keyword1 + '&user_id=' + this.keyword2)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    } else {
+                        axios.get('/SearchUserOrder?pageNum=' + 1 + '&order_id=' + this.keyword1 + '&user_id=' + this.keyword2)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }else {
+                    if (this.hasPreviousPage == true) {
+                        axios.get('/findAllUserOrder?pageNum=' + this.prePage)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    } else {
+                        axios.get('/findAllUserOrder?pageNum=' + 1)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }
+
+            },
+
+            //下一页
+            nextPageWay(e) {
+                if (this.if_Search == 1) {//判断是否为查询过的页面
+                    if (this.hasNextPage == true) {
+                        axios.get('/SearchUserOrder?pageNum=' + this.nextPage  + '&order_id=' + this.keyword1 + '&user_id=' + this.keyword2)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    } else {
+                        axios.get('/SearchUserOrder?pageNum=' + this.pages  + '&order_id=' + this.keyword1 + '&user_id=' + this.keyword2)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }else {
+                    if (this.hasNextPage == true) {
+                        axios.get('/findAllUserOrder?pageNum=' + this.nextPage)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    } else {
+                        axios.get('/findAllUserOrder?pageNum=' + this.pages)
+                            .then(response => {
+                                this.updateData(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }
+            },
+
+            //点击页数
+            clickPageWay(e) {
+                if (this.if_Search == 1){//判断是否为查询过的页面
+                    var id = event.currentTarget.innerHTML;
+                    console.log("id" + id)
+                    axios.get('/SearchUserOrder?pageNum=' + id + '&order_id=' + this.keyword1 + '&user_id=' + this.keyword2)
+                        .then(response => {
+                            this.updateData(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                }else {
+                    var id = event.currentTarget.innerHTML;
+                    console.log("id" + id)
+                    axios.get('/findAllUserOrder?pageNum=' + id)
+                        .then(response => {
+                            this.updateData(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                }
+            },
+
+
+            // 查看订单详情
+            queryOrderList(e) {
+                var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_id")[0].innerText;
+                // alert(id)
+                e.currentTarget.href = '/Order_details?order_id=' + id;
+                console.log(e.currentTarget.href);
+            },
+
+
+            //删除订单
+            deleteOrderList(e) {
+                var order_user_delete = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_user_delete")[0].innerText
+                console.log("order_user_delete",order_user_delete)
+                if (order_user_delete == '是'){
+                    alert("该订单信息已经修改了删除标志，不可重复操作！")
+                }else if (order_user_delete == '否'){
+                    if (confirm("您是否确定删除")) {
+                        var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_id")[0].innerText;
+                        axios.get('/deleteOrderInformation?order_id=' + id)
+                            .then(response => {
+                                console.log(response.data)//返回的数据
+                                window.location.href='Orders'
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }
+            },
+
+            //回归订单
+            returnDeleteOrderList(e) {
+                var order_user_delete = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_user_delete")[0].innerText
+                console.log("order_user_delete",order_user_delete)
+                if (order_user_delete == '否'){
+                    alert("该订单信息还没有被删除，不可回归")
+                }else if (order_user_delete == '是'){
+                    if (confirm("您是否确定回归该订单")) {
+                        var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_id")[0].innerText;
+                        axios.get('/returnDeleteOrderInformation?order_id=' + id)
+                            .then(response => {
+                                console.log(response.data)//返回的数据
+                                window.location.href='Orders'
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                }
+            },
+
+            // 修改订单
+            updateOrderList(e) {
+                var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("order_id")[0].innerText;
+                e.currentTarget.href = 'Modify_orders.html?order_id=' + id;
+                console.log(e.currentTarget.href);
+            },
+
+
+            // 按字段查询
+            query() {
+                // var keyword1 = $(".keyword1").val();
+                // var keyword2 = $(".keyword2").val();
+                console.log("keyword1:",this.keyword1,"keyword2:",this.keyword2)
+                // if (keyword1 == null && keyword2 == null || keyword1 == "" && keyword2 == "") {
+                //     Field = "all"
+                // }
+                axios({
+                    method: 'get',
+                    url: '/SearchUserOrder?order_id=' + this.keyword1 + '&user_id=' + this.keyword2,
+                }).then(res => {
+                    console.log("查询成功");
+                    console.log(res.data);
+                    if (res.data.size != 0) {
+                        this.updateData(res);
+                        this.if_Search = 1;//标记该页面是已经搜索过的页面
+                    }else {
+                        alert("暂无该搜索数据，可换个词语重新搜索噢~~")
+                    }
+                }, err => {
+                    console.log(err);
+                })
+            },
+        }
+    })
+
+</script>
+</body>
+
+</html>

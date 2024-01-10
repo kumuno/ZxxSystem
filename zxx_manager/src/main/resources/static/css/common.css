@@ -1,0 +1,34 @@
+.blueBtn {
+    height: 30px;
+    line-height: 28px;
+    padding: 0 20px;
+    color: #fff;
+    background: #3B9FE1;
+    border-radius: 5px;
+}
+
+.kv-item{margin-bottom:15px;font-size:12px;position: relative;}
+.kv-item .err-text {
+    position: absolute;
+    top: 28px;
+    left: 79px;
+    color: #fc0000;
+    visibility: hidden;
+}
+
+.kv-item .abso-city {
+    position: absolute;
+    top: 0;
+    left: 351px;
+    background: #fff;
+    z-index: 100;
+}
+.kv-item .abso-city .city-close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+button{outline: none;!important;}

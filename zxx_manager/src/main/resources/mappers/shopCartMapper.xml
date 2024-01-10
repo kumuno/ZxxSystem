@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.shopCartMapper">
+    <resultMap id="shopCartMap" type="com.Pojo.shopCart">
+        <id column="shopcart_id"  property="shopcart_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_id"  property="user_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="commodity_id"  property="commodity_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="sonAttribute_id"  property="sonAttribute_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="shopcart_amount"  property="shopcart_amount" jdbcType="INTEGER" javaType="int" />
+        <result column="shopcart_sign"  property="shopcart_sign" jdbcType="TINYINT" />
+        <result column="shopcart_createTime"  property="shopcart_createTime" />
+        <result column="checked"  property="checked" jdbcType="TINYINT" />
+        <!-- 用于关联commodity对象 -->
+        <association property="commodity" javaType="com.Pojo.commodity">
+            <id column="commodity_id"  property="commodity_id" />
+            <result column="commodity_name"  property="commodity_name" />
+            <result column="commodity_introduce"  property="commodity_introduce" />
+            <result column="commodity_img"  property="commodity_img" />
+            <result column="commodity_carousel_Img"  property="commodity_carousel_Img" />
+            <result column="commodity_sales"  property="commodity_sales" />
+            <result column="commodity_type"  property="commodity_type" />
+            <result column="commodity_tag"  property="commodity_tag" />
+            <result column="commodity_state"  property="commodity_state" />
+            <result column="address_id"  property="address_id" />
+            <result column="commodity_flag"  property="commodity_flag" />
+        </association>
+        <!-- 用于关联commoditySonAttribute对象 -->
+        <association property="commoditySonAttribute" javaType="com.Pojo.commoditySonAttribute">
+            <id property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="Attribute_id" column="Attribute_id"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="commodity_price" column="commodity_price"/>
+            <result property="commodity_number" column="commodity_number"/>
+        </association>
+    </resultMap>
+
+<!--    通过commodity_id查找对应用户的所有购物车信息-->
+    <select id="selectByCommodityId"  parameterType="com.Pojo.shopCart" resultMap="shopCartMap">
+        select shopcart_id
+        from shopCart
+        where commodity_id = #{commodity_id}
+    </select>
+
+    <!--    通过sonAttribute_id查找对应用户的所有购物车信息-->
+    <select id="selectBySonAttribute_id"  parameterType="com.Pojo.shopCart" resultMap="shopCartMap">
+        select shopcart_id
+        from shopCart
+        where sonAttribute_id = #{sonAttribute_id}
+    </select>
+
+
+<!--    删除对应的购物车-->
+    <delete id="deleteShopCart">
+        delete
+        from shopCart
+        where shopcart_id = #{shopcart_id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.orderItemMapper">
+    <resultMap id="orderItemMap" type="com.Pojo.orderItem">
+        <id column="orderItem_id"  property="orderItem_id" />
+        <result column="order_id"  property="order_id" />
+        <result column="commodity_id"  property="commodity_id" />
+        <result column="sonAttribute_id"  property="sonAttribute_id" />
+        <result column="orderItem_amount"  property="orderItem_amount" />
+        <result column="orderItem_goodname"  property="orderItem_goodname" />
+        <result column="Attribute_name"  property="Attribute_name" />
+        <result column="orderItem_goodimage"  property="orderItem_goodimage" />
+        <result column="orderItem_goodprice"  property="orderItem_goodprice" />
+        <result column="orderItem_createTime"  property="orderItem_createTime" />
+        <result column="orderItem_user_delete"  property="orderItem_user_delete" />
+        <!-- 用于关联commodity对象 -->
+        <association property="commodity" javaType="com.Pojo.commodity">
+            <id column="commodity_id"  property="commodity_id" />
+            <result column="commodity_name"  property="commodity_name" />
+            <result column="commodity_introduce"  property="commodity_introduce" />
+            <result column="commodity_img"  property="commodity_img" />
+            <result column="commodity_carousel_Img"  property="commodity_carousel_Img" />
+            <result column="commodity_sales"  property="commodity_sales" />
+            <result column="commodity_type"  property="commodity_type" />
+            <result column="commodity_tag"  property="commodity_tag" />
+            <result column="commodity_state"  property="commodity_state" />
+            <result column="address_id"  property="address_id" />
+            <result column="commodity_flag"  property="commodity_flag" />
+        </association>
+        <!-- 用于关联commoditySonAttribute对象 -->
+        <association property="commoditySonAttribute" javaType="com.Pojo.commoditySonAttribute">
+            <id property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="Attribute_id" column="Attribute_id"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="commodity_price" column="commodity_price"/>
+            <result property="commodity_number" column="commodity_number"/>
+        </association>
+    </resultMap>
+
+    <!--添加订单商品信息-->
+    <insert id="insertOrderItem">
+        insert into orderItem(orderItem_id,order_id,commodity_id,sonAttribute_id,orderItem_amount,orderItem_goodname,
+        Attribute_name,orderItem_goodimage,orderItem_goodprice,orderItem_createTime,orderItem_user_delete)
+        values (#{orderItem_id},#{order_id},#{commodity_id},#{sonAttribute_id},#{orderItem_amount},#{orderItem_goodname},
+        #{Attribute_name},#{orderItem_goodimage},#{orderItem_goodprice},#{orderItem_createTime},#{orderItem_user_delete})
+    </insert>
+
+    <!-- 通过order_id查询该总订单的商品订单所有信息-->
+    <select id="findOrderGoodsByOrderId"  parameterType="String" resultMap="orderItemMap">
+        select *
+        from orderItem A, commodity B, commoditySonAttribute C
+        where A.order_id = #{order_id}
+        and A.commodity_id = B.commodity_id
+        and A.sonAttribute_id = C.sonAttribute_id
+        and A.orderItem_user_delete = 0
+        and B.commodity_state = 1
+    </select>
+
+    <!-- 通过commodity_id查询该总订单的商品订单所有信息-->
+    <select id="findOrderCommodity"  parameterType="String" resultType="com.Pojo.orderItem">
+        select *
+        from orderItem
+        where commodity_id = #{commodity_id}
+    </select>
+
+    <!-- 通过sonAttribute_id查询该总订单的商品订单所有信息-->
+    <select id="findOrderCommodityBySonAttribute_id"  parameterType="String" resultType="com.Pojo.orderItem">
+        select *
+        from orderItem
+        where sonAttribute_id = #{sonAttribute_id}
+    </select>
+</mapper>

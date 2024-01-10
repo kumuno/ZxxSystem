@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zxx.parentProject</groupId>
+        <artifactId>parentProject</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>zxx</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>zxx</name>
+    <description>zxx</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+<!--        <aliyun-docker-namespace>填写你的阿里云docker容器命名空间，容器设置：https://cr.console.aliyun.com/cn-shanghai/instances</aliyun-docker-namespace>-->
+    </properties>
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.12</version>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>com.google.cloud.tools</groupId>-->
+<!--                <artifactId>jib-maven-plugin</artifactId>-->
+<!--                <version>3.1.4</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;配置基本镜像&ndash;&gt;-->
+<!--                    <from>-->
+<!--                        <image>adoptopenjdk/openjdk8-openj9</image>-->
+<!--                    </from>-->
+<!--                    &lt;!&ndash;配置最终推送的地址，仓库名，镜像名&ndash;&gt;-->
+<!--                    <to>-->
+<!--                        <image>registry.cn-shanghai.aliyuncs.com/${aliyun-docker-namespace}/${project.artifactId}</image>-->
+<!--                        <tags>-->
+<!--                            <tag>${project.version}</tag>-->
+<!--                            <tag>latest</tag>-->
+<!--                        </tags>-->
+<!--                        <auth>-->
+<!--                            <username>填写你的阿里云docker容器账号（邮箱）</username>-->
+<!--                            <password>填写你的阿里云docker容器密码（固定密码），密码设置：https://cr.console.aliyun.com/cn-shanghai/instance/credentials</password>-->
+<!--                        </auth>-->
+<!--                    </to>-->
+<!--                    <container>-->
+<!--                        <mainClass>ltd.newbee.mall.NewBeeMallPlusApplication</mainClass>-->
+<!--                        <jvmFlags>-->
+<!--                            <jvmFlag>-Xms512m</jvmFlag>-->
+<!--                            <jvmFlag>-Xmx512m</jvmFlag>-->
+<!--                            &lt;!&ndash; 记录内存溢出时的推展情况&ndash;&gt;-->
+<!--                            <jvmFlag>-XX:+HeapDumpOnOutOfMemoryError</jvmFlag>-->
+<!--                            &lt;!&ndash; 内存溢出文件位置&ndash;&gt;-->
+<!--                            <jvmFlag>-XX:HeapDumpPath=./</jvmFlag>-->
+<!--                        </jvmFlags>-->
+<!--                    </container>-->
+<!--                </configuration>-->
+
+<!--                &lt;!&ndash;绑定到maven lifecicle&ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

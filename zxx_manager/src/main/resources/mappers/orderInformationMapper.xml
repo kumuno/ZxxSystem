@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.orderInformationMapper">
+    <resultMap id="orderInformationMap" type="com.Pojo.orderInformation">
+        <id column="order_id"  property="order_id" />
+        <result column="order_account"  property="order_account" />
+        <result column="user_id"  property="user_id" />
+        <result column="good_sumprice"  property="good_sumprice" />
+        <result column="order_sumPrice" property="order_sumPrice" />
+        <result column="order_paymentTime"  property="order_paymentTime" />
+        <result column="order_status"  property="order_status" />
+        <result column="order_way"  property="order_way" />
+        <result column="order_remark"  property="order_remark" />
+        <result column="address_id"  property="address_id" />
+        <result column="order_user_delete"  property="order_user_delete" />
+        <result column="order_refund_reason"  property="order_refund_reason" />
+        <result column="order_refund_instructions"  property="order_refund_instructions" />
+        <result column="order_refund_image"  property="order_refund_image" />
+        <result column="order_createTime"  property="order_createTime" />
+        <result column="order_newCreateTime"  property="order_newCreateTime" />
+        <result column="order_shipping_time"  property="order_shipping_time" />
+        <result column="order_confirm_time"  property="order_confirm_time" />
+        <result column="order_apply_refundTime"  property="order_apply_refundTime" />
+        <result column="order_refund_time"  property="order_refund_time" />
+        <result column="order_predict_predictTime"  property="order_predict_predictTime" />
+        <!-- 用于关联shipAddress对象 -->
+        <association property="shipAddress" javaType="com.Pojo.shipAddress">
+            <id property="address_id" column="address_id"/>
+            <result property="regionAddress" column="regionAddress"/>
+            <result property="detailAddress" column="detailAddress"/>
+            <result property="address_contact" column="address_contact"/>
+            <result property="address_phone" column="address_phone"/>
+            <result property="address_default" column="address_default"/>
+        </association>
+        <!-- 用于关联user对象 -->
+        <association property="user" javaType="com.Pojo.user">
+            <id property="user_id" column="user_id"/>
+            <result property="user_name" column="user_name"/>
+            <result property="user_password" column="user_password"/>
+            <result property="user_image" column="user_image"/>
+            <result property="user_phone" column="address_phone"/>
+            <result property="user_createTime" column="user_createTime"/>
+            <result property="user_Integral" column="user_Integral"/>
+            <result property="user_is_deleted" column="user_is_deleted"/>
+        </association>
+        <!-- 用于关联orderItem对象 -->
+        <collection property="orderItem" ofType="com.Pojo.orderItem">
+            <id property="orderItem_id" column="orderItem_id"/>
+            <result property="order_id" column="order_id"/>
+            <result property="commodity_id" column="commodity_id"/>
+            <result property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="orderItem_amount" column="orderItem_amount"/>
+            <result property="orderItem_goodname" column="orderItem_goodname"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="orderItem_goodimage" column="orderItem_goodimage"/>
+            <result property="orderItem_goodprice" column="orderItem_goodprice"/>
+            <result property="orderItem_createTime" column="orderItem_createTime"/>
+            <result property="orderItem_user_delete" column="orderItem_user_delete"/>
+        </collection>
+    </resultMap>
+
+
+    <!--用户查询所有订单-->
+    <select id="findAllUserOrder"  resultType="com.Pojo.orderInformation">
+        select *
+        from orderInformation
+    </select>
+
+    <!--    通过order_id查询该订单的所有信息-->
+    <select id="selectByOrderId"  parameterType="String" resultMap="orderInformationMap">
+        select *
+        from orderInformation A, orderItem B, shipAddress C, user D
+        where A.order_id = #{order_id}
+        and A.order_id = B.order_id
+        and A.address_id = C.address_id
+        and A.user_id = D.user_id
+    </select>
+
+    <!--    删除订单信息（把删除标志从0改为1）-->
+    <update id="deleteOrderInformation"  parameterType="String">
+        update orderInformation A, orderItem B
+        set A.order_user_delete = 1,
+            B.orderItem_user_delete = 1
+        where A.order_id = #{order_id}
+            and A.order_id = B.order_id
+    </update>
+
+    <!--    回归删除订单信息（把删除标志从1改为0）-->
+    <update id="returnDeleteOrderInformation"  parameterType="String">
+        update orderInformation A, orderItem B
+        set A.order_user_delete = 0,
+            B.orderItem_user_delete = 0
+        where A.order_id = #{order_id}
+            and A.order_id = B.order_id
+    </update>
+
+    <!--    搜索订单-->
+    <select id="SearchUserOrder" parameterType="String" resultType="com.Pojo.orderInformation">
+        select *
+        from orderInformation
+        <where>
+            <if test="order_id != '' and order_id !=null">
+                and order_id = #{order_id}
+            </if>
+            <if test="user_id != '' and user_id !=null">
+                and user_id = #{user_id}
+            </if>
+        </where>
+    </select>
+
+    <!-- 替换订单信息的用户收货地址ID为最新的-->
+    <update id="updateOrderInformationAddressId"  parameterType="String">
+        update orderInformation
+        set address_id = #{address_id}
+        where order_id = #{order_id}
+    </update>
+
+<!--    统计订单状态的数量-->
+    <select id="countOrderStatus"  resultType="java.util.Map">
+        select order_status, count(order_status)
+        from orderInformation
+        GROUP BY order_status
+    </select>
+
+    <!-- 统计总营业额（已收货订单的总金额）-->
+    <select id="countTotalSales"  resultType="java.lang.Double">
+        select SUM(order_sumPrice)
+        from orderInformation
+        where order_status = '已收货'
+    </select>
+
+    <!-- 统计总订单数-->
+    <select id="countTotalOrderNumber"  resultType="java.lang.Integer">
+        select count(*)
+        from orderInformation
+    </select>
+
+    <!-- 统计销售量（已收货订单的商品总数量）-->
+    <select id="countTotalSellNumber"  resultType="java.lang.Integer">
+        select SUM(order_account)
+        from orderInformation
+        where order_status = '已收货'
+    </select>
+
+    <!-- 统计顾客总数-->
+    <select id="countTotalUserNumber"  resultType="java.lang.Integer">
+        select count(*)
+        from user
+        where user_is_deleted = 0
+    </select>
+
+    <!--获取所有的订单总价格和收货时间-->
+    <select id="getAllOrderSumPriceAndConfirmTime"  resultType="java.util.Map">
+        select order_confirm_time,order_sumPrice
+        from orderInformation
+        where order_status = '已收货'
+    </select>
+
+
+<!--    销售总量图表-->
+    <select id="getOrderAccountAndConfirmTimeAndCommodityType"  resultType="java.util.Map">
+        select B.orderItem_amount, A.order_confirm_time, C.commodity_type
+        from orderInformation A, orderItem B, commodity C
+        where A.order_status = '已收货'
+        and B.commodity_id = C.commodity_id
+        and A.order_id = B.order_id
+    </select>
+
+    <!--获取订单的总价-->
+    <select id="findOrderSumPriceByOrder_id" resultType="java.lang.Double" parameterType="String">
+        select order_sumPrice from orderInformation
+        where order_id = #{order_id}
+    </select>
+
+    <!--    获取该用户当前的积分-->
+    <select id="getUserIntegral"   parameterType="java.lang.String" resultType="int">
+        select sum(user_Integral) from user
+        where user_id = #{user_id}
+        and user_is_deleted = 0
+    </select>
+
+    <!--更新用户当前积分-->
+    <update id="updateUserIntegral" parameterType="com.Pojo.user">
+        update user
+        set user_Integral = #{user_Integral}
+        where user_id  = #{user_id}
+        and   user_is_deleted = 0
+    </update>
+
+</mapper>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.userMapper">
+    <resultMap id="userMap" type="com.Pojo.user">
+        <id column="user_id"  property="user_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_name"  property="user_name" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_password"  property="user_password" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_image"  property="user_image" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_phone"  property="user_phone" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_createTime"  property="user_createTime" />
+        <result column="user_is_deleted"  property="user_is_deleted" jdbcType="TINYINT" />
+        <result column="user_Integral"  property="user_Integral" jdbcType="TINYINT" />
+    </resultMap>
+
+    <!-- 发货地址-->
+    <resultMap id="shipAddressMap" type="com.Pojo.shipAddress">
+        <id column="address_id"  property="address_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_id"  property="user_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="regionAddress"  property="regionAddress" jdbcType="VARCHAR" javaType="string" />
+        <result column="detailAddress"  property="detailAddress" jdbcType="VARCHAR" javaType="string" />
+        <result column="address_contact"  property="address_contact" jdbcType="VARCHAR" javaType="string" />
+        <result column="address_phone"  property="address_phone" jdbcType="VARCHAR" javaType="string" />
+        <result column="address_default"  property="address_default" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!-- 订单具体商品信息-->
+    <resultMap id="orderItemMap" type="com.Pojo.orderItem">
+        <id column="orderItem_id"  property="orderItem_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="order_id "  property="order_id " jdbcType="VARCHAR" javaType="string" />
+        <result column="commodity_id "  property="commodity_id " jdbcType="VARCHAR" javaType="string" />
+        <result column="orderItem_amount "  property="orderItem_amount " />
+        <result column="orderItem_goodname"  property="orderItem_goodname" jdbcType="VARCHAR" javaType="string" />
+        <result column="rderItem_goodimage"  property="rderItem_goodimage" jdbcType="VARCHAR" javaType="string" />
+        <result column="orderItem_goodprice"  property="orderItem_goodprice" />
+        <result column="orderItem_createTime"  property="orderItem_createTime" />
+    </resultMap>
+
+    <!--封装好的sql语句-->
+    <sql id="base_user_parameter">user_id,user_name,user_password,user_image,user_phone,user_createTime,user_is_deleted,user_Integral</sql>
+
+
+    <!-- 通过客户ID获取全部客户信息-->
+    <select id="selectByUserId" parameterType="com.Pojo.user" resultMap="userMap">
+        select
+        <include refid="base_user_parameter"/>
+        from user
+        where user_id = #{user_id,jdbcType=BIGINT} and user_is_deleted = 0
+    </select>
+
+    <!-- 通过客户姓名获取全部客户信息-->
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="userMap">
+        select
+        <include refid="base_user_parameter"/>
+        from user
+        where user_name = #{user_name} and user_is_deleted = 0
+    </select>
+
+    <!--通过客户ID更新客户最基本信息（姓名，密码，联系方式，注册时间）-->
+    <update id="updateByUserIdSelective" parameterType="com.Pojo.user">
+        update user
+        <set>
+
+            <if test="user_name != null">
+                user_name = #{user_name,jdbcType=VARCHAR},
+            </if>
+            <if test="user_password != null">
+                user_password = #{user_password,jdbcType=VARCHAR},
+            </if>
+            <if test="user_image != null">
+                user_image = #{user_image,jdbcType=VARCHAR},
+            </if>
+            <if test="user_phone != null">
+                user_phone = #{user_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="user_createTime != null">
+                user_createTime = #{user_createTime,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where user_id = #{user_id,jdbcType=BIGINT}
+    </update>
+
+    <!--分页查询所有客户-->
+    <select id="findUserList" resultMap="userMap" parameterType="Map">
+        select
+        <include refid="base_user_parameter"/>
+        from user
+        where user_is_deleted = 0
+        order by user_createTime desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <!-- 获取客户总数量-->
+    <select id="getTotalUsers"  resultType="int">
+        select count(*) from user where user_is_deleted = 0
+    </select>
+
+
+    <!-- 批量注销客户账号-->
+    <update id="deleteUserBatch">
+        update user
+        set user_is_deleted=1 where user_id in
+        <foreach item="id" collection="user_id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+
+    </update>
+
+    <!--客户添加收货地址-->
+    <insert id="addShipAddress" parameterType="com.Pojo.shipAddress" useGeneratedKeys="true" keyColumn="address_id" keyProperty="address_id">
+        insert into shipAddress(address_id,user_id,regionAddress,detailAddress,address_contact,address_phone,address_default)
+        values (#{address_id},#{user_id},#{regionAddress},#{detailAddress},#{address_contact},#{address_phone},#{address_default})
+    </insert>
+
+    <!--客户查看自己的所有发货地址-->
+    <select id="findShipAddressListByUserId" resultMap="shipAddressMap" parameterType="java.lang.String">
+        select
+        regionAddress,detailAddress,address_contact,address_phone,address_default
+        from shipAddress
+        where user_id = #{user_id}
+    </select>
+
+    <!-- 客户修改发货地址-->
+    <update id="updateShipAddressSelective" parameterType="com.Pojo.shipAddress">
+        update shipAddress
+        <set>
+
+            <if test="regionAddress != null">
+                regionAddress = #{regionAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="detailAddress != null">
+                detailAddress = #{detailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="address_contact != null">
+                address_contact = #{address_contact,jdbcType=VARCHAR},
+            </if>
+            <if test="address_phone != null">
+                address_phone = #{address_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address_default != null">
+                address_default = #{address_default,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where address_id = #{address_id,jdbcType=BIGINT}
+
+    </update>
+
+    <!-- 客户删除发货地址-->
+    <delete id="deleteShipAddressById" parameterType="java.lang.String">
+        delete
+        from shipAddress
+        where address_id = #{address_id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 通过总订单ID获取该总订单的订单商品数量-->
+    <select id="getOrderCommodityNumber"  resultType="int" parameterType="java.lang.String">
+        select count(*) from orderItem where order_id = #{order_id}
+    </select>
+
+
+    <!--    分页-->
+    <select id="findAllUser" resultMap="userMap">
+        select * from user
+        where user_is_deleted = 0
+    </select>
+
+    <!--    多条件查询-->
+    <select id="conditionalQueriesUser" resultMap="userMap">
+        select * from user
+        where
+        <if test="keyword1 != null and keyword2 == null">
+            user_id like concat('%',#{keyword1},'%'),
+        </if>
+        <if test="keyword1 == null and keyword2 != null">
+            user_name like concat('%',#{keyword2},'%'),
+        </if>
+        <if test="keyword1 != null and keyword2 != null">
+            user_id like concat('%',#{keyword1},'%')
+            and user_name like concat('%',#{keyword2},'%')
+        </if>
+    </select>
+
+    <!--    客户查询-->
+    <select id="SearchUser" resultMap="userMap">
+        select * from user
+        where
+        <if test="user_id != null and user_name == null">
+            user_id like concat('%',#{user_id},'%'),
+        </if>
+        <if test="user_id == null and user_name != null">
+            user_name like concat('%',#{user_name},'%'),
+        </if>
+        <if test="user_id != null and user_name != null">
+            user_id like concat('%',#{user_id},'%')
+            and user_name like concat('%',#{user_name},'%')
+        </if>
+    </select>
+
+    <!--    更新用户状态-->
+    <update id="deleteUser"  parameterType="com.Pojo.user">
+        update user
+        set user_is_deleted = 1
+        where   user_id = #{user_id}
+    </update>
+
+    <!--    添加用户-->
+    <insert id="addUser"  parameterType="com.Pojo.user">
+        insert into user(user_id,user_name,user_password,user_phone,
+                              user_image,user_createTime,user_Integral,user_is_deleted)
+        values (#{user_id},#{user_name},#{user_password},#{user_phone},
+                #{user_image},#{user_createTime},#{user_Integral},#{user_is_deleted})
+    </insert>
+
+<!--    用户更新信息-->
+    <update id="updateUser"  parameterType="com.Pojo.user">
+        update user
+        set user_name=#{user_name},
+            user_password=#{user_password},
+            user_phone=#{user_phone},
+            user_Integral=#{user_Integral},
+            user_is_deleted=#{user_is_deleted}
+        where    user_id=#{user_id}
+    </update>
+
+<!--    查找用户-->
+    <select id="queryUserById" resultMap="userMap">
+        select * from user
+        where user_id = #{user_id}
+            and user_is_deleted = 0
+    </select>
+
+
+</mapper>

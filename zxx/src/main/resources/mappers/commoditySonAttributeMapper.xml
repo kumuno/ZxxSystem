@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.commoditySonAttributeMapper">
+
+    <select id="findAllCommoditySonAttributeByid" resultType="com.Pojo.commoditySonAttribute">
+        select C.sonAttribute_id,C.Attribute_id,C.Attribute_name,C.commodity_price,C.commodity_number
+        from commodity A, commodityAttribute B, commoditySonAttribute C
+        where A.commodity_id = #{commodity_id}
+          and A.commodity_id = B.commodity_id
+          and B.Attribute_id = C.Attribute_id
+          and C.commoditySonAttribute_state = 1
+    </select>
+</mapper>

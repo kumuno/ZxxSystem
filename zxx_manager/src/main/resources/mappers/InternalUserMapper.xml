@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.internalUserMapper">
+    <resultMap id="InternalUserMap" type="com.Pojo.InternalUser">
+        <id column="InternalUser_id"  property="InternalUser_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="InternalUser_name"  property="InternalUser_name" jdbcType="VARCHAR" javaType="string" />
+        <result column="InternalUser_password"  property="InternalUser_password" jdbcType="VARCHAR" javaType="string" />
+        <result column="InternalUser_image"  property="InternalUser_image" jdbcType="VARCHAR" javaType="string" />
+        <result column="InternalUser_revenue"  property="InternalUser_revenue" jdbcType="DOUBLE" javaType="double" />
+        <result column="InternalUser_phone"  property="InternalUser_phone" jdbcType="VARCHAR" javaType="string" />
+        <result column="InternalUser_createTime"  property="InternalUser_createTime" />
+        <result column="InternalUser_is_deleted"  property="InternalUser_is_deleted" jdbcType="TINYINT" />
+    </resultMap>
+
+    <select id="queryAllInternalUser" resultMap="InternalUserMap">
+        select * from InternalUser
+    </select>
+
+<!--    多条件查询-->
+    <select id="conditionalQueries" resultMap="InternalUserMap">
+        select * from InternalUser
+        where
+            <if test="keyword1 != null and keyword2 == null">
+                InternalUser_id like concat('%',#{keyword1},'%'),
+            </if>
+            <if test="keyword1 == null and keyword2 != null">
+                InternalUser_name like concat('%',#{keyword2},'%'),
+            </if>
+            <if test="keyword1 != null and keyword2 != null">
+                InternalUser_id like concat('%',#{keyword1},'%')
+                and InternalUser_name like concat('%',#{keyword2},'%')
+            </if>
+    </select>
+
+    <!--    分页-->
+    <select id="findAllInternalUser" resultType="com.Pojo.InternalUser">
+        select *
+        from InternalUser
+        where InternalUser_is_deleted = 0
+    </select>
+
+    <!--    搜索内部成员-->
+    <select id="SearchInternalUser" parameterType="String" resultType="com.Pojo.InternalUser">
+        select * from InternalUser
+        where
+        <if test="InternalUser_id != null and InternalUser_name == null">
+            InternalUser_id like concat('%',#{InternalUser_id},'%'),
+        </if>
+        <if test="InternalUser_id == null and InternalUser_name != null">
+            InternalUser_name like concat('%',#{InternalUser_name},'%'),
+        </if>
+        <if test="InternalUser_id != null and InternalUser_name != null">
+            InternalUser_id like concat('%',#{InternalUser_id},'%')
+            and InternalUser_name like concat('%',#{InternalUser_name},'%')
+        </if>
+    </select>
+<!--    删除内部成员（修改内部成员状态）-->
+    <update id="deleteInternalUser" parameterType="com.Pojo.InternalUser">
+        update InternalUser
+        set InternalUser_is_deleted = 1
+        where   InternalUser_id = #{InternalUser_id}
+    </update>
+
+    <!--    员工注册-->
+    <insert id="addInternalUser"  parameterType="com.Pojo.InternalUser">
+        insert into InternalUser(InternalUser_id,InternalUser_name,InternalUser_password,InternalUser_image,InternalUser_revenue,InternalUser_phone,
+                              InternalUser_createTime,InternalUser_is_deleted)
+        values (#{InternalUser_id},#{InternalUser_name},#{InternalUser_password},#{InternalUser_image},#{InternalUser_revenue},#{InternalUser_phone},
+                #{InternalUser_createTime},#{InternalUser_is_deleted})
+    </insert>
+
+<!--    更新员工信息-->
+    <update id="updateInternalUser"  parameterType="com.Pojo.InternalUser">
+        update InternalUser
+        set InternalUser_name=#{InternalUser_name},
+            InternalUser_password=#{InternalUser_password},
+            InternalUser_revenue=#{InternalUser_revenue},
+            InternalUser_phone=#{InternalUser_phone}
+        where    InternalUser_id=#{InternalUser_id}
+    </update>
+
+<!--    查找对应员工信息-->
+    <select id="queryInternalUser" resultMap="InternalUserMap">
+        select * from InternalUser
+        where InternalUser_id = #{InternalUser_id}
+          and InternalUser_is_deleted = 0
+    </select>
+</mapper>

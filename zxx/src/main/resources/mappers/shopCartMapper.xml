@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.shopCartMapper">
+    <resultMap id="shopCartMap" type="com.Pojo.shopCart">
+        <id column="shopcart_id"  property="shopcart_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="user_id"  property="user_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="commodity_id"  property="commodity_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="sonAttribute_id"  property="sonAttribute_id" jdbcType="VARCHAR" javaType="string" />
+        <result column="shopcart_amount"  property="shopcart_amount" jdbcType="INTEGER" javaType="int" />
+        <result column="shopcart_sign"  property="shopcart_sign" jdbcType="TINYINT" />
+        <result column="shopcart_createTime"  property="shopcart_createTime" />
+        <result column="checked"  property="checked" jdbcType="TINYINT" />
+        <!-- 用于关联commodity对象 -->
+        <association property="commodity" javaType="com.Pojo.commodity">
+            <id column="commodity_id"  property="commodity_id" />
+            <result column="commodity_name"  property="commodity_name" />
+            <result column="commodity_introduce"  property="commodity_introduce" />
+            <result column="commodity_img"  property="commodity_img" />
+            <result column="commodity_carousel_Img"  property="commodity_carousel_Img" />
+            <result column="commodity_sales"  property="commodity_sales" />
+            <result column="commodity_type"  property="commodity_type" />
+            <result column="commodity_tag"  property="commodity_tag" />
+            <result column="commodity_state"  property="commodity_state" />
+            <result column="address_id"  property="address_id" />
+            <result column="commodity_flag"  property="commodity_flag" />
+        </association>
+        <!-- 用于关联commoditySonAttribute对象 -->
+        <association property="commoditySonAttribute" javaType="com.Pojo.commoditySonAttribute">
+            <id property="sonAttribute_id" column="sonAttribute_id"/>
+            <result property="Attribute_id" column="Attribute_id"/>
+            <result property="Attribute_name" column="Attribute_name"/>
+            <result property="commodity_price" column="commodity_price"/>
+            <result property="commodity_number" column="commodity_number"/>
+        </association>
+    </resultMap>
+
+<!--    通过商品id查询购物车ID-->
+    <select id="selectByShopCartID"  resultType="String">
+        select shopcart_id
+        from shopCart
+        where sonAttribute_id = #{sonAttribute_id}
+    </select>
+
+
+<!--    通过shopcart_id查找对应用户的所有购物车信息-->
+    <select id="selectByshopCartID"  parameterType="com.Pojo.shopCart" resultMap="shopCartMap">
+        select *
+        from shopCart
+        where shopcart_id = #{shopcart_id}
+    </select>
+
+    <!--购物车注册-->
+    <insert id="shopCartEnroll" parameterType="com.Pojo.shopCart" useGeneratedKeys="true" keyColumn="shopcart_id" keyProperty="shopcart_id">
+        insert into shopCart(shopcart_id,user_id,commodity_id,shopcart_amount,shopcart_sign,shopcart_createTime,sonAttribute_id,checked)
+        values (#{shopcart_id},#{user_id},#{commodity_id},#{shopcart_amount},#{shopcart_sign},#{shopcart_createTime},#{sonAttribute_id},#{checked})
+    </insert>
+
+    <!--通过子属性更新信息-->
+    <update id="updateBySonAttributeId" parameterType="com.Pojo.shopCart">
+        update shopCart
+        set shopcart_amount = #{number2}
+        where sonAttribute_id = #{sonAttribute_id}
+    </update>
+
+    <!--通过子属性更新checked-->
+    <update id="updateChecked" parameterType="com.Pojo.shopCart">
+        update shopCart
+        set checked = #{checked}
+        where sonAttribute_id = #{sonAttribute_id}
+    </update>
+
+<!--    查询购物车中所有商品数量-->
+    <select id="sum_shopcart_amount" resultType="java.lang.Integer" >
+        select sum(shopcart_amount) from shopCart
+        where user_id = #{user_id}
+    </select>
+
+<!--    通过openId查询购物车中所有子属性id-->
+    <select id="allAttribute" resultMap="shopCartMap">
+--         select A.commodity_id,A.commodity_name,A.commodity_img,A.commodity_state,B.Attribute_name,B.commodity_price,C.shopcart_amount,C.checked
+        select *
+        from commodity A, commoditySonAttribute B, shopCart C
+        where C.user_id = #{user_id}
+        and   C.sonAttribute_id = B.sonAttribute_id
+        and   C.commodity_id = A.commodity_id
+    </select>
+
+    <!--    通过shopcart_id查找对应用户购物车中选中的信息-->
+    <select id="selectCheckedByshopCartID"  resultMap="shopCartMap">
+        select *
+        from commodity A, commoditySonAttribute B, shopCart C
+        where C.user_id = #{user_id}
+          and   C.sonAttribute_id = B.sonAttribute_id
+          and   C.commodity_id = A.commodity_id
+          and   C.checked = 1
+    </select>
+
+    <!--通过购物车ID更新购物车商品数量-->
+    <update id="updateShopCartAmount" parameterType="com.Pojo.shopCart">
+        update shopCart
+        set shopcart_amount = #{shopcart_amount}
+        where shopcart_id = #{shopcart_id}
+    </update>
+
+<!--    删除对应的购物车-->
+    <delete id="deleteShopCart">
+        delete
+        from shopCart
+        where shopcart_id = #{shopcart_id}
+    </delete>
+
+    <!--选中所有商品-->
+    <update id="CartCheckedAll" parameterType="com.Pojo.shopCart">
+        update shopCart
+        set checked = 1
+    </update>
+
+    <!--取消选中所有商品-->
+    <update id="CancelCartCheckedAll" parameterType="com.Pojo.shopCart">
+        update shopCart
+        set checked = 0
+    </update>
+</mapper>

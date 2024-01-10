@@ -1,0 +1,910 @@
+<!--订单管理-->
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>订单详情</title>
+</head>
+<style>
+    #updatebut {
+        margin-left: 100px;
+    }
+
+    table tbody {
+        display: block;
+        height: 195px;
+        overflow-y: scroll;
+        /*scrollbar-base-color:#1ABC9C;*/
+    }
+
+    table thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: auto;
+    }
+
+    table th, table td {
+        text-align: center;
+    }
+
+    table thead tr, table tbody tr {
+        box-sizing: border-box;
+        table-layout: fixed;
+        display: table;
+        width: 100%;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px; /*滚动条宽度*/
+        height: 18px; /*滚动条高度*/
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    ::-webkit-scrollbar-track {
+        box-shadow: 0px 1px 3px #1ABC9C inset; /*滚动条的背景区域的内阴影*/
+        border-radius: 10px; /*滚动条的背景区域的圆角*/
+        background-color: #1ABC9C; /*滚动条的背景颜色*/
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb {
+        box-shadow: 0px 1px 3px #1ABC9C inset; /*滚动条的内阴影*/
+        border-radius: 10px; /*滚动条的圆角*/
+        background-color: #1ABC9C; /*滚动条的背景颜色*/
+    }
+
+
+</style>
+
+<body>
+<div id="app">
+    <!-- <div id="loading"><div id="loading-center"></div></div> -->
+    <div class="wrapper">
+        <div class="iq-sidebar">
+            <div class="iq-sidebar-logo d-flex justify-content-between">
+                <a href="Index.html">
+                    <!-- <img src="images/01.jpg" class="img-fluid" alt=""> -->
+                    <span>湛小鲜后台管理</span>
+                </a>
+
+            </div>
+            <div id="sidebar-scrollbar">
+                <nav class="iq-sidebar-menu">
+                    <ul class="iq-menu">
+
+                        <li class="active">
+                            <a href="/Index" class="iq-waves-effect"><i
+                                    class="ri-home-8-fill"></i><span>内部成员首页</span></a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-settings-5-fill"></i><span>营销情况</span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Index">营销情况</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-user-settings-fill"></i><span>商品管理 </span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/CommodityList">商品列表</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i class="ri-todo-fill"></i><span>订单管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Orders">订单管理</a></li>
+                            </ul>
+                        </li>
+                        <!--                    <li>-->
+<!--                        <a href="javascript:void(0);" class="iq-waves-effect"><i-->
+<!--                                class="ri-file-edit-fill"></i><span>快递管理</span><i-->
+<!--                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                        <ul class="iq-submenu">-->
+<!--                            <li><a href="/Address">快递地址管理</a></li>-->
+<!--                            <li><a href="/Delivery">配送管理</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-alarm-warning-fill"></i><span>优惠券 </span><i
+                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Coupons">优惠券</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-bar-chart-2-fill"></i><span>员工管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/HireUser_management">员工管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-barricade-fill"></i><span>内部成员管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/InternalUser_management">内部成员管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-battery-2-charge-line"></i><span>顾客管理
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/User_management">顾客管理 </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="iq-waves-effect"><i
+                                    class="ri-pie-chart-2-fill"></i><span>个人中心
+                        </span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                            <ul class="iq-submenu">
+                                <li><a href="/Mine">查看个人信息</a></li>
+                                <!--<li><a href="/Member_info">查看成员信息</a></li>-->
+                                <!--                                <li><a href="/Modify_Info">修改个人信息</a></li>-->
+                                <li><a href="/Boss_management">注册账号</a></li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div class="p-3"></div>
+            </div>
+        </div>
+
+        <!-- Page Content  -->
+        <div id="content-page" class="content-page">
+            <!-- TOP Nav Bar -->
+            <div class="iq-top-navbar">
+                <div class="iq-navbar-custom">
+
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <div class="iq-search-bar">
+                            <form action="#" class="searchbox">
+                                <!-- 按照编号查找 -->
+                                <span class="text search-input keyword">欢迎来到湛小鲜后台管理系统</span>
+                            </form>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto navbar-list">
+                                <!-- 全屏图标 -->
+                                <li class="nav-item iq-full-screen">
+                                    <a href="#" class="iq-waves-effect" id="btnFullscreen"><i
+                                            class="ri-fullscreen-line"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="navbar-list">
+                            <li>
+                                <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                                   <img th:src="@{/images/01.jpg}" class="img-fluid rounded mr-3" alt="boss">
+                                    <div class="caption">
+                                        <h6 class="mb-0 line-height">湛小鲜</h6>
+                                        <span class="font-size-12">管理员</span>
+                                    </div>
+                                </a>
+                                <div class="iq-sub-dropdown iq-boss-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white line-height">你好-湛小鲜</h5>
+                                            </div>
+                                            <a href="/Mine" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="media align-items-center">
+                                                    <div class="rounded iq-card-icon iq-bg-primary">
+                                                        <i class="ri-file-boss-line"></i>
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">个人中心</h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        <!--                                            <a href="/Modify_Info" class="iq-sub-card iq-bg-primary-hover">-->
+<!--                                                <div class="media align-items-center">-->
+<!--                                                    <div class="rounded iq-card-icon iq-bg-primary">-->
+<!--                                                        <i class="ri-profile-line"></i>-->
+<!--                                                    </div>-->
+<!--&lt;!&ndash;                                                    <div class="media-body ml-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        <h6 class="mb-0 ">修改个人信息</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    </div>&ndash;&gt;-->
+<!--                                                </div>-->
+<!--                                            </a>-->
+                                            <div class="d-inline-block w-100 text-center p-3">
+                                                <a class="bg-primary iq-sign-btn" href="/signIn" role="button">退出登录<i
+                                                        class="ri-login-box-line ml-2"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <!-- TOP Nav Bar END -->
+            <div class="container-fluid">
+                <div class="content-header ">
+                    <div class="content-header-left mb-2 clearfix">
+                        <h3 class="content-header-title mb-0 pull-left">商品详情</h3>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/CommodityList">商品管理</a></li>
+                            <li class="active">商品详情</li>
+                        </ol>
+                    </div>
+                    <div class="funcbtn clearfix">
+                        <div class="pull-left"><a class="btn btn-default" href="/CommodityList"> 返回</a></div>
+                    </div>
+                </div>
+
+                <div class="iq-card">
+
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">商品属性</h4>
+                        </div>
+                    </div>
+                    <div class="topbtn" style="margin-left: 20px;margin-top: 20px">
+                        <a href="#" class="btn btn-bg-gradient-x-purple-red" data-toggle="modal"
+                           data-target="#myModal1">添加属性</a>
+                        <a href="#" class="btn btn-bg-gradient-x-purple-red" data-toggle="modal"
+                           data-target="#mysunModal">添加商品子属性</a>
+                    </div>
+                    <div class="selbox">
+                        <div class="form1">
+                            <ul class="row">
+                                <li class="col-xs-4">
+                                    <span>属性编号：</span>
+                                    <select class="form-control keyword1" required="required" style="width: 320px;">
+                                        <option>请选择属性编号</option>
+                                        <option v-for="commodityAttribute in commodityAttributeList">
+                                            {{commodityAttribute.attribute_id}}
+                                        </option>
+                                    </select>
+                                </li>
+
+                                <!--<li class="col-xs-4">-->
+                                <!--<span>属性名称：</span>-->
+                                <!--<input type="text" required="required" class="form-control keyword2">-->
+                                <!--</li>-->
+                                <li class="col-xs-4" style="padding-left: 10px">
+                                    <a href="javascript:;" class="btn btn-primary" @click="query()">查询</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>商品属性编号</th>
+                            <th>商品编号</th>
+                            <th>商品属性名称</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="commodityAttribute in commodityAttributeList">
+                            <td class="attribute_id">{{commodityAttribute.attribute_id}}</td>
+                            <td>{{commodityAttribute.commodity_id}}</td>
+                            <td>{{commodityAttribute.commodityAttribute_name}}</td>
+                            <td v-if="commodityAttribute.commodityAttribute_state == 1">上架</td>
+                            <td v-else>下架</td>
+                            <td>
+                                <a href="javaScript:;" @click="updateCommodityAttribute($event)">修改</a>
+                                <a href="javaScript:;" v-if="commodityAttribute.commodityAttribute_state==0"
+                                   @click="returnDeleteCommodityAttribute($event)">上架</a>
+                                <a href="javaScript:;" v-else="commodityAttribute.commodityAttribute_state==1"
+                                   @click="deleteCommodityAttribute($event)">下架</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>商品子属性编号</th>
+                            <th>商品属性编号</th>
+                            <th>商品子属性名称</th>
+                            <th>商品价格</th>
+                            <th>商品库存量</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr v-for="commoditySonAttribute in commoditySonAttributeList">
+                            <td class="sonAttribute_id">{{commoditySonAttribute.sonAttribute_id}}</td>
+                            <td>{{commoditySonAttribute.attribute_id}}</td>
+                            <td>{{commoditySonAttribute.attribute_name}}</td>
+                            <td>{{commoditySonAttribute.commodity_price}}</td>
+                            <td>{{commoditySonAttribute.commodity_number}}</td>
+                            <td v-if="commoditySonAttribute.commoditySonAttribute_state == 1">上架</td>
+                            <td v-else>下架</td>
+                            <td><a href="javaScript:;" @click="updateCommoditySonAttribute($event)">修改</a>
+
+                                <a href="javaScript:;" v-if="commoditySonAttribute.commoditySonAttribute_state==0"
+                                   @click="returnDeleteCommoditySonAttribute($event)">上架</a>
+                                <a href="javaScript:;" v-else="commoditySonAttribute.commoditySonAttribute_state==1"
+                                   @click="deleteCommoditySonAttribute($event)">下架</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">商品信息</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <div class="bxx">
+                                <ul class="row">
+                                    <li class="col-xl-8">
+                                        <ul class="row">
+                                            <li class="col-xl-6"><strong>商品编号：</strong>{{commodityInformationList.commodity_id}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品名称：</strong>{{commodityInformationList.commodity_name}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品介绍：</strong>{{commodityInformationList.commodity_introduce}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品销售量：</strong>{{commodityInformationList.commodity_sales}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品类型：</strong>{{commodityInformationList.commodity_type}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品标签：</strong>{{commodityInformationList.commodity_tag}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>商品状态：</strong>{{commodityInformationList.commodity_state}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>发货联系人：</strong>{{commodityInformationList.sendPeopleName}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>发货电话：</strong>{{commodityInformationList.sendPhone}}
+                                            </li>
+                                            <li class="col-xl-6"><strong>发货地址：</strong>{{commodityInformationList.sendAddress}}
+                                            </li>
+<!--                                            <li class="col-xl-6"><strong>备注：</strong>{{commodityInformationList.commodity_flag}}-->
+<!--                                            </li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <img :src="commodityInformationList.commodity_img"
+                                     style="margin-left: 150px;margin-top: -20px;border-radius: 15px;width: 60px;height: 60px">
+                                <h3>主图片</h3>
+
+                            </div>
+                            <div style="position: relative; margin-left: 100px;">
+                                <h5>轮播图</h5>
+                                <div style="display: flex;margin-top: -30px;margin-left: 60px;" v-if="urList.length>0" v-cloak>
+                                    <div style="margin-right: 10px;" class="item"  v-for="item,s in urList" :key="s" >
+                                        <div class="pic-box">
+                                            <img  class="img" style="border-radius: 15px; width: 60px;height: 60px" :src="item">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!--<a href="javaScript:;" @click="updateOrderList($event)"><button type="button" class="btn btn-primary" id="updatebut">修改订单</button></a>-->
+                            <div class="topbtn">
+                                <a href="#" class="btn btn-primary" id="updatebut"
+                                   @click="updateCommodity($event)">修改商品</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加商品属性-->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加属性</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <!--添加商品属性-->
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title" style="color: #0abb78;text-align: center">商品属性</h4>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品编号</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control"
+                                       v-model="newcommodityAttribute.commodity_id">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">属性名称</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control"
+                                       v-model="newcommodityAttribute.commodityAttribute_name">
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-def" data-dismiss="modal">关闭</button>-->
+                        <!--<a href="#" class="btn btn-bg-gradient-x-purple-red" data-toggle="modal"-->
+                        <!--data-target="#myModal2" >添加属性</a>-->
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#myModal2" @click="addNewCommodityAttribute()">添加子属性
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加商品子属性-->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加子属性</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <!--添加商品子属性-->
+                        <hr>
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title" style="color: #0abb78;text-align: center">商品子属性</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品属性编号</label>
+                            <div class="col-md-9">
+                                <!--<select class="form-control" required="required" style="width: 320px;"-->
+                                <!--v-model="newcommoditySonAttribute.attribute_id">-->
+                                <!--<option v-for="commodityAttribute in commodityAttributeList">{{commodityAttribute.attribute_id}}</option>-->
+                                <!--</select>-->
+                                <input disabled type="text" required="required" class="form-control"
+                                       v-model="newcommoditySonAttribute.attribute_id">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">子属性名称</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control"
+                                       v-model="newcommoditySonAttribute.attribute_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品价格</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')"
+                                       v-model="newcommoditySonAttribute.commodity_price">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品库存量</label>
+                            <div class="col-md-9">
+                                <input type="number" required="required" class="form-control"
+                                       v-model="newcommoditySonAttribute.commodity_number">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-def" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" @click="addNewCommoditySonAttribute()">执行操作
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--添加原有商品属性的子属性-->
+    <div class="modal fade" id="mysunModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加子属性</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <!--&lt;!&ndash;添加商品子属性&ndash;&gt;-->
+                        <!--<hr>-->
+                        <!--<div class="iq-card-header d-flex justify-content-between">-->
+                        <!--<div class="iq-header-title">-->
+                        <!--<h4 class="card-title" style="color: #0abb78;text-align: center">商品子属性</h4>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品属性编号</label>
+                            <div class="col-md-9">
+                                <select class="form-control" required="required" style="width: 320px;"
+                                        v-model="newcommoditySonAttribute.attribute_id">
+                                    <option v-for="commodityAttribute in commodityAttributeList">
+                                        {{commodityAttribute.attribute_id}}
+                                    </option>
+                                </select>
+                                <!--<input type="text" required="required" class="form-control"-->
+                                <!--v-model="newcommoditySonAttribute.attribute_id">-->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">子属性名称</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control"
+                                       v-model="newcommoditySonAttribute.attribute_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品价格</label>
+                            <div class="col-md-9">
+                                <input type="text" required="required" class="form-control" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')"
+                                       v-model="newcommoditySonAttribute.commodity_price">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 label-control">商品库存量</label>
+                            <div class="col-md-9">
+                                <input type="number" required="required" class="form-control"
+                                       v-model="newcommoditySonAttribute.commodity_number">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-def" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" @click="addNewCommoditySonAttribute1()">执行操作
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/smooth-scrollbar.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+<script th:src="@{/js/echarts.min.js}"></script>
+<script th:src="@{/js/axios-0.18.0.js}"></script>
+<script th:src="@{/js/vue.js}"></script>
+<script>
+    // 获取对应id
+    function getQueryString(commodity_id) {
+        var reg = new RegExp('(^|&)' + commodity_id + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+    }
+
+    var commodity_id = getQueryString("commodity_id");
+    console.log("地址栏的编号是", commodity_id);
+
+    function refresh() {
+        window.location.reload();//自动刷新当前页面
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            commodityInformationList: {//商品信息
+                commodity_id: "",
+                commodity_name: "",
+                commodity_introduce: "",
+                commodity_img: "",
+                commodity_carousel_Img: "",
+                commodity_sales: 0,
+                commodity_type: "",
+                commodity_tag: "",
+                commodity_state: 0,
+                address_id: "",
+                commodity_flag: ""
+            },
+            commodityAttributeList: {//商品属性
+                attribute_id: "",
+                commodity_id: "",
+                commodityAttribute_name: ""
+            },
+            commoditySonAttributeList: {//商品子属性
+                sonAttribute_id: "",
+                attribute_id: "",
+                attribute_name: "",
+                commodity_price: 0.00,
+                commodity_number: 0
+            },
+            // 新商品属性
+            newcommodityAttribute: {
+                attribute_id: "",
+                commodity_id: "",
+                commodityAttribute_name: ""
+            },
+
+            // 新商品子属性
+            newcommoditySonAttribute: {
+                sonAttribute_id: "",
+                attribute_id: "",
+                attribute_name: "",
+                commodity_price: "",
+                commodity_number: 0
+            },
+            //商品属性编号
+            attribute_id: "",
+            //每页显示数
+            pageSize: 5,
+            //总条目数
+            totalCount: 0,
+            // 当前页码
+            currentPage: 1,
+            //定时器
+            intervalTimer: null,
+            //catch中的弹框标记
+            axiosFlag: true,
+            //显示商品照片轮播图
+            urList:[],
+            url:""
+        },
+        mounted() {
+            var that=this;
+            // 获取后台商品数据
+            axios
+                .get('/managerCommodityController/queryByCommodityId?commodity_id=' + commodity_id)
+                .then(response => (//请求成功
+                console.log(response.data),
+                    this.commodityInformationList = response.data,
+                    // this.commoditySonAttributeList = this.commodityInformationList.commodityAttribute,
+                    this.commoditySonAttributeList = response.data.commoditySonAttribute,
+                    this.commodityAttributeList = response.data.commodityAttribute,
+                    this.newcommodityAttribute.commodity_id = commodity_id,
+                    console.log("商品属性的商品编号：", this.newcommodityAttribute.commodity_id),
+                    // this.attribute_idList = JSON.stringify(this.commodityAttributeList),
+                    // console.log("商品属性编号：",this.commodityAttributeList.attribute_id),
+                    console.log(this.commoditySonAttributeList),
+                    console.log(this.commodityAttributeList),
+                    this.urList=response.data.commodity_carousel_Img.split("--")
+
+            )
+        ).catch(function (error) {
+                console.log(error);//请求失败
+            });
+
+            // var url=this.commodityInformationList.commodity_carousel_Img;
+            // that.urList=url.split("--");
+            console.log(this.commodityInformationList)
+
+        },
+        methods: {
+
+            //删除商品属性信息
+            deleteCommodityAttribute(e) {
+                if (confirm("您是否确定删除")) {
+                    var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("attribute_id")[0].innerText;
+                    axios.get('/commodityAttributeController/deleteCommodityAttribute?attribute_id=' + id + '&returnOrDelete=' + 0)
+                        .then(response => {
+                        console.log("成功");
+                        console.log(response.data)//返回的数据
+                        alert(response.data.message)
+                        window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                }).
+                    catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            },
+
+            //回归被删除商品属性信息
+            returnDeleteCommodityAttribute(e) {
+                if (confirm("您是否确定上架被删除商品属性信息？")) {
+                    var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("attribute_id")[0].innerText;
+                    axios.get('/commodityAttributeController/deleteCommodityAttribute?attribute_id=' + id + '&returnOrDelete=' + 1)
+                        .then(response => {
+                            console.log("成功");
+                            console.log(response.data)//返回的数据
+                            alert(response.data.message)
+                            window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                        }).
+                    catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            },
+
+            //删除商品子属性信息
+            deleteCommoditySonAttribute(e) {
+                if (confirm("若没有被顾客下单的商品，会直接删除该商品的所有信息，会有信息丢失的风险，您是否确定删除？")) {
+                    var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("sonAttribute_id")[0].innerText;
+                    axios.get('/commoditySonAttributeController/deleteCommoditySonAttribute?sonAttribute_id=' + id + '&returnOrDelete=' + 0)
+                        .then(response => {
+                        console.log("成功");
+                        console.log(response.data)//返回的数据
+                        alert(response.data.message)
+                        window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                })
+                .
+                    catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            },
+
+            //回归被删除商品子属性信息
+            returnDeleteCommoditySonAttribute(e) {
+                if (confirm("您是否确定上架被删除商品子属性信息？")) {
+                    var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("sonAttribute_id")[0].innerText;
+                    axios.get('/commoditySonAttributeController/deleteCommoditySonAttribute?sonAttribute_id=' + id + '&returnOrDelete=' + 1)
+                        .then(response => {
+                            console.log("成功");
+                            console.log(response.data)//返回的数据
+                            alert(response.data.message)
+                            window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                        })
+                        .
+                        catch(function (error) {
+                            console.log(error);
+                        })
+                }
+            },
+
+            // 修改商品属性
+            updateCommodityAttribute(e) {
+                console.log("你好丫~")
+                var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("attribute_id")[0].innerText;
+                e.currentTarget.href = 'Modify_commodityAttribute?Attribute_id=' + id;
+                console.log(e.currentTarget.href);
+            },
+
+            // 修改商品子属性
+            updateCommoditySonAttribute(e) {
+                console.log("你好哦~")
+                var id = e.currentTarget.parentElement.parentElement.getElementsByClassName("sonAttribute_id")[0].innerText;
+                e.currentTarget.href = 'Modify_commoditySonAttribute?sonAttribute_id=' + id + '&commodity_id=' + commodity_id ;
+                console.log(e.currentTarget.href);
+            },
+
+            //  修改商品信息
+            updateCommodity(e) {
+                console.log("你在干嘛丫~")
+                e.currentTarget.href = 'Modify_commodity?commodity_id=' + commodity_id;
+                console.log(e.currentTarget.href);
+            },
+
+            // 添加新商品属性
+            addNewCommodityAttribute() {
+                console.log(this.newcommodityAttribute)
+                if (confirm("请继续完成该商品子属性的添加")) {
+                    axios
+                        .get('/commodityAttributeController/addCommodityAttribute', {
+                            params: {
+                                newcommodityAttribute: JSON.stringify(this.newcommodityAttribute)
+                            }
+                        }).then(response => (
+                        this.attribute_id = response.data,
+                            console.log(this.attribute_id),
+                            this.newcommoditySonAttribute.attribute_id = this.attribute_id,
+                            this.newcommodityAttribute = {}
+                    )
+                )
+                .
+                    catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                }
+            },
+
+            // 添加新商品子属性
+            addNewCommoditySonAttribute() {
+                console.log(this.newcommoditySonAttribute)
+                if (confirm("是否添加子属性")) {
+                    axios
+                        .get('/commoditySonAttributeController/addCommoditySonAttribute2', {
+                            params: {
+                                newcommoditySonAttribute: JSON.stringify(this.newcommoditySonAttribute)
+                            }
+                        }).then(response => (
+                            console.log(response.data),
+                            window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                    )
+                ).
+                    catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                }
+            },
+
+            //添加原有商品属性的子属性
+            addNewCommoditySonAttribute1() {
+                console.log(this.newcommoditySonAttribute)
+                if (confirm("是否添加子属性")) {
+                    axios
+                        .get('/commoditySonAttributeController/addCommoditySonAttribute2', {
+                            params: {
+                                newcommoditySonAttribute: JSON.stringify(this.newcommoditySonAttribute)
+                            }
+                        }).then(response => (
+                            console.log(response.data),
+                            window.location.href = '/managerCommodityController/Commodity_details?commodity_id=' + commodity_id
+                    )
+                ).
+                    catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                }
+            },
+
+            // 按编号查询
+            query() {
+                // var CancelToken = this.$axios.CancelToken
+                // this.axiosFlag = true
+                var keyword1 = $(".keyword1").val();
+                if (keyword1 == null || keyword1 == "") {
+                    Field = "all"
+                }
+                axios({
+                    method: 'get',
+                    url: '/commodityAttributeController/queryAttributeAndSonAttribute?keyword1=' + keyword1
+                }).then(res => {
+                    console.log("查询成功");
+                console.log(res.data);
+                if (res.data == null) {
+                    this.commodityAttributeList = [];
+                    this.commoditySonAttributeList = [];
+                } else {
+                    this.commodityAttributeList = res.data.commodityAttribute;
+                    this.commoditySonAttributeList = res.data.commoditySonAttribute;
+                }
+                // setInterval(function () {
+                //     window.location.reload(); //刷新当前页面
+                //
+                // }, 1000)
+                // setTimeout('refresh()', 3000)//1秒刷新一次
+            }
+            ).catch(function (error) { // 请求失败处理
+                    console.log(error);
+                })
+            }
+        }
+    })
+
+</script>
+</body>
+
+</html>
