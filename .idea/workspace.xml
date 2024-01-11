@@ -13,7 +13,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="449ed0b5-d6c6-4283-acc1-e3dbe6b4f1fe" name="默认更改列表" comment="默认更改列表" />
+    <list default="true" id="449ed0b5-d6c6-4283-acc1-e3dbe6b4f1fe" name="默认更改列表" comment="首次上传">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +29,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/zxx" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="bb744265-ac5c-4ac0-953f-7e735b71eae0" />
@@ -55,11 +57,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="show.run.dashboard.notification" value="false" />
   </component>
   <component name="ReactorSettings">
@@ -103,7 +106,8 @@
       <workItem from="1680747191553" duration="89362000" />
       <workItem from="1681725290057" duration="43000" />
       <workItem from="1704893118121" duration="860000" />
-      <workItem from="1704894387694" duration="93000" />
+      <workItem from="1704894387694" duration="2088000" />
+      <workItem from="1704937377618" duration="1793000" />
     </task>
     <servers />
   </component>
@@ -127,5 +131,7 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/zxx" />
     </ignored-roots>
+    <MESSAGE value="首次上传" />
+    <option name="LAST_COMMIT_MESSAGE" value="首次上传" />
   </component>
 </project>
